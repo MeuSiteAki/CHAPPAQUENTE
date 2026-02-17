@@ -790,11 +790,17 @@ if (lista) {
         // Gerando a URL do QR Code com o valor total correto
         const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(brCode)}`;
 
-        Swal.fire({
+ Swal.fire({
             title: 'Pagamento PIX',
+            // Adicione esta linha abaixo para garantir que o alerta fique no topo:
+            didOpen: () => {
+                const container = Swal.getContainer();
+                if (container) container.style.zIndex = "10000"; // Força para cima do carrinho
+                document.getElementById('conf-pix').onclick = () => { Swal.close(); finalizar(); }
+            },
             html: `
                 <div style="color:#fff">
-                    <div style="background:white; padding:15px; display:inline-block; border-radius:10px; margin-bottom:10px; z-index: 10000">
+                    <div style="background:white; padding:15px; display:inline-block; border-radius:10px; margin-bottom:10px;">
                         <img src="${qrUrl}" style="display:block; width:180px;">
                     </div>
                     <p style="font-weight:800; color:var(--gold); font-size:1.4rem; margin:0;">Total: R$ ${totalParaPix.toFixed(2)}</p>
