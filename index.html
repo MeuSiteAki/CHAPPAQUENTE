@@ -316,7 +316,7 @@ header {
     .lista-scroll { max-height: none; }
 }
 
-@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.35); } 100% { transform: scale(1); } }
 
 .btn-desativado { background: #333 !important; cursor: not-allowed !important; opacity: 0.6; }
 .hidden { display: none !important; }
@@ -497,35 +497,35 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
         const produtos = [
-    { id: 1, cat: "SIMPLES", nome: "Chappa Kids", desc: "Pão brioche, carne artesanal - 75g, queijo, presunto, tomate e alface.", preco: 13.00, img: "https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=400" },
-    { id: 2, cat: "SIMPLES", nome: "Chappa Quente", desc: "Pão brioche, carne artesanal 75g, queijo, presunto, cheddar, tomate e alface.", preco: 14.00, img: "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=400" },
-    { id: 3, cat: "SIMPLES", nome: "X-Burguer", desc: "Pão brioche, carne artesanal 75g, queijo, presunto, salsicha, tomate e alface.", preco: 15.00, img: "https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?w=400" },
-    { id: 4, cat: "SIMPLES", nome: "X-Salada Especial", desc: "Pão brioche, carne artesanal 75g, queijo, presunto, ovo, tomate e alface.", preco: 15.00, img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=400" },
-    { id: 5, cat: "SIMPLES", nome: "X-Calabresa", desc: "Pão brioche, carne artesanal 75g, queijo, presunto, salsicha, calabresa, tomate e alface.", preco: 16.00, img: "https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=400" },
-    { id: 6, cat: "SIMPLES", nome: "X-Bacon", desc: "Pão brioche, carne artesanal 75g, queijo, presunto, salsicha, bacon, tomate e alface.", preco: 17.00, img: "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=400" },
-    { id: 7, cat: "SIMPLES", nome: "X-Tudo", desc: "Pão brioche, carne artesanal 75g, queijo, presunto, ovo, salsicha, calabresa, bacon, tomate e alface.", preco: 18.00, img: "https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?w=400" },
-    { id: 8, cat: "SIMPLES", nome: "X-Queijo Especial", desc: "Pão brioche, 2 carnes artesanais 75g, 2 queijos, calabresa, salsicha, cheddar, tomate e alface.", preco: 20.00, img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=400" },
-    { id: 9, cat: "SIMPLES", nome: "Mega Chappa", desc: "Pão brioche, 2 carnes artesanais 75g, queijo, presunto, ovo, cheddar, salsicha, calabresa, tomate e alface.", preco: 26.00, img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=400" },
-    { id: 10, cat: "SIMPLES", nome: "Cheddar Burguer", desc: "Pão brioche, 2 carnes artesanais 75g, 2 queijos, 2 presuntos, cheddar, salsicha, bacon, calabresa, tomate e alface.", preco: 28.00, img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=400" },
-    { id: 11, cat: "ARTESANAIS", nome: "Hambúrguer Clássico", desc: "Pão de hambúrguer, carne artesanal 120g, 2 queijos, barbecue, tomate alface e molho da casa.", preco: 18.00, img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=400" },
-    { id: 12, cat: "ARTESANAIS", nome: "Cheddar Bacon", desc: "Pão de hambúrguer, carne artesanal 120g, bacon, cheddar cremoso, barbecue, cebola, geleia de goiabada apimentada.", preco: 22.00, img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=400" },
-    { id: 13, cat: "ARTESANAIS", nome: "Chappa Burguer Picante", desc: "Pão de hambúrguer, carne artesanal 120g, queijo, presunto, cheddar cremoso, banana da terra, geleia de goiabada apimentada, tomate e alface.", preco: 25.00, img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=400" },
-    { id: 14, cat: "ARTESANAIS", nome: "Big Burguer Calabresa", desc: "Pão de hambúrguer, carnes artesanal 120g, queijos, presunto, calabresa, cheddar cremoso, geleia de goiabada apimentada, barbecue, tomate e alface.", preco: 27.00, img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=400" },
-    { id: 15, cat: "ARTESANAIS", nome: "X Bacon Duplo", desc: "Pão de hambúrguer, 2 carnes artesanal 120g, queijo, bacon, cheddar cremoso, geleia de goiabada apimentada, barbecue, tomate e alface.", preco: 27.00, img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=400" },
-    { id: 16, cat: "ARTESANAIS", nome: "Chappa Quente Especial", desc: "Pão de hambúrguer, 2 carnes artesanal 120g, 2 queijos, 2 presuntos, bacon, calabresa, banana da terra, cheddar cremoso, geleia de goiabada apimentada, barbecue, tomate e alface.", preco: 35.00, img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=400" },
-    { id: 17, cat: "PETISCOS", nome: "Calabresa Frita Acebolada", desc: "Calabresa passada na chapa ao ponto, acebolada.", preco: 35.00, img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=400" },
-    { id: 18, cat: "PETISCOS", nome: "Carne Acebolada na Chappa", desc: "Carne ao ponto, acebolada na chappa.", preco: 50.00, img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=400" },
-    { id: 19, cat: "PETISCOS", nome: "Combo do Chef", desc: "Calabresa especial e carne suculenta passadas na chapa ao ponto, acebolada, molho da casa e barbecue.", preco: 65.00, img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=400" },
-    { id: 20, cat: "BEBIDAS", nome: "Refrigerante 250ml", desc: "Escolha o sabor ao adicionar.", preco: 4.00, img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=400" },
-    { id: 21, cat: "BEBIDAS", nome: "Refrigerante 350ml", desc: "Escolha o sabor ao adicionar.", preco: 6.00, img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=400" },
-    { id: 22, cat: "BEBIDAS", nome: "Refrigerante 1L", desc: "Escolha o sabor ao adicionar.", preco: 10.00, img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=400" },
-    { id: 23, cat: "BEBIDAS", nome: "Refrigerante 2L", desc: "Escolha o sabor ao adicionar.", preco: 15.00, img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=400" },
-    { id: 24, cat: "BEBIDAS", nome: "H2O Limoneto 500ml", desc: "", preco: 7.00, img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=400" },
-    { id: 25, cat: "BEBIDAS", nome: "Água mineral (sem gás)", desc: "", preco: 3.00, img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=400" },
-    { id: 26, cat: "BEBIDAS", nome: "Suco Natural 300ml", desc: "Escolha o sabor ao adicionar.", preco: 7.00, img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=400" },
+    { id: 1, cat: "SIMPLES", nome: "Chappa Kids", desc: "Pão brioche, carne artesanal - 75g, queijo, presunto, tomate e alface.", preco: 13.00, img: "simples.jpg" },
+    { id: 2, cat: "SIMPLES", nome: "Chappa Quente", desc: "Pão brioche, carne artesanal 75g, queijo, presunto, cheddar, tomate e alface.", preco: 14.00, img: "ham2.webp" },
+    { id: 3, cat: "SIMPLES", nome: "X-Burguer", desc: "Pão brioche, carne artesanal 75g, queijo, presunto, salsicha, tomate e alface.", preco: 15.00, img: "xbur.jpg" },
+    { id: 4, cat: "SIMPLES", nome: "X-Salada Especial", desc: "Pão brioche, carne artesanal 75g, queijo, presunto, ovo, tomate e alface.", preco: 15.00, img: "salaes.jpg" },
+    { id: 5, cat: "SIMPLES", nome: "X-Calabresa", desc: "Pão brioche, carne artesanal 75g, queijo, presunto, salsicha, calabresa, tomate e alface.", preco: 16.00, img: "cala2.jpg" },
+    { id: 6, cat: "SIMPLES", nome: "X-Bacon", desc: "Pão brioche, carne artesanal 75g, queijo, presunto, salsicha, bacon, tomate e alface.", preco: 17.00, img: "xbac.jpg" },
+    { id: 7, cat: "SIMPLES", nome: "X-Tudo", desc: "Pão brioche, carne artesanal 75g, queijo, presunto, ovo, salsicha, calabresa, bacon, tomate e alface.", preco: 18.00, img: "xtudo.jpg" },
+    { id: 8, cat: "SIMPLES", nome: "X-Queijo Especial", desc: "Pão brioche, 2 carnes artesanais 75g, 2 queijos, calabresa, salsicha, cheddar, tomate e alface.", preco: 20.00, img: "4quei.jpeg" },
+    { id: 9, cat: "SIMPLES", nome: "Mega Chappa", desc: "Pão brioche, 2 carnes artesanais 75g, queijo, presunto, ovo, cheddar, salsicha, calabresa, tomate e alface.", preco: 26.00, img: "chap.jpg" },
+    { id: 10, cat: "SIMPLES", nome: "Cheddar Burguer", desc: "Pão brioche, 2 carnes artesanais 75g, 2 queijos, 2 presuntos, cheddar, salsicha, bacon, calabresa, tomate e alface.", preco: 28.00, img: "xche.webp" },
+    { id: 11, cat: "ARTESANAIS", nome: "Hambúrguer Clássico", desc: "Pão de hambúrguer, carne artesanal 120g, 2 queijos, barbecue, tomate alface e molho da casa.", preco: 18.00, img: "hamb.jpg" },
+    { id: 12, cat: "ARTESANAIS", nome: "Cheddar Bacon", desc: "Pão de hambúrguer, carne artesanal 120g, bacon, cheddar cremoso, barbecue, cebola, geleia de goiabada apimentada.", preco: 22.00, img: "ched.jpg" },
+    { id: 13, cat: "ARTESANAIS", nome: "Chappa Burguer Picante", desc: "Pão de hambúrguer, carne artesanal 120g, queijo, presunto, cheddar cremoso, banana da terra, geleia de goiabada apimentada, tomate e alface.", preco: 25.00, img: "pic.jpg" },
+    { id: 14, cat: "ARTESANAIS", nome: "Big Burguer Calabresa", desc: "Pão de hambúrguer, carnes artesanal 120g, queijos, presunto, calabresa, cheddar cremoso, geleia de goiabada apimentada, barbecue, tomate e alface.", preco: 27.00, img: "cala.webp" },
+    { id: 15, cat: "ARTESANAIS", nome: "X Bacon Duplo", desc: "Pão de hambúrguer, 2 carnes artesanal 120g, queijo, bacon, cheddar cremoso, geleia de goiabada apimentada, barbecue, tomate e alface.", preco: 27.00, img: "baco.webp" },
+    { id: 16, cat: "ARTESANAIS", nome: "Chappa Quente Especial", desc: "Pão de hambúrguer, 2 carnes artesanal 120g, 2 queijos, 2 presuntos, bacon, calabresa, banana da terra, cheddar cremoso, geleia de goiabada apimentada, barbecue, tomate e alface.", preco: 35.00, img: "xd.jpg" },
+    { id: 17, cat: "PETISCOS", nome: "Calabresa Frita Acebolada", desc: "Calabresa passada na chapa ao ponto, acebolada.", preco: 35.00, img: "cala3.jpg" },
+    { id: 18, cat: "PETISCOS", nome: "Carne Acebolada na Chappa", desc: "Carne ao ponto, acebolada na chappa.", preco: 50.00, img: "carn.jpg" },
+    { id: 19, cat: "PETISCOS", nome: "Combo do Chef", desc: "Calabresa especial e carne suculenta passadas na chapa ao ponto, acebolada, molho da casa e barbecue.", preco: 65.00, img: "carncala.jpg" },
+    { id: 20, cat: "BEBIDAS", nome: "Refrigerante 250ml", desc: "Escolha o sabor ao adicionar.", preco: 4.00, img: "rive.webp" },
+    { id: 21, cat: "BEBIDAS", nome: "Refrigerante 350ml", desc: "Escolha o sabor ao adicionar.", preco: 6.00, img: "coca.jpeg" },
+    { id: 22, cat: "BEBIDAS", nome: "Refrigerante 1L", desc: "Escolha o sabor ao adicionar.", preco: 10.00, img: "coca2.jpeg" },
+    { id: 23, cat: "BEBIDAS", nome: "Refrigerante 2L", desc: "Escolha o sabor ao adicionar.", preco: 15.00, img: "coca3.jpg" },
+    { id: 24, cat: "BEBIDAS", nome: "H2O Limoneto 500ml", desc: "", preco: 7.00, img: "limo.jpg" },
+    { id: 25, cat: "BEBIDAS", nome: "Água mineral (sem gás)", desc: "", preco: 3.00, img: "agua.jpg" },
+    { id: 26, cat: "BEBIDAS", nome: "Suco Natural 300ml", desc: "Escolha o sabor ao adicionar.", preco: 7.00, img: "suco.jpg" },
     // --- ADIÇÃO DA CATEGORIA CERVEJAS ---
-    { id: 28, cat: "CERVEJAS", nome: "Latas 269ml ", desc: "Escolha a marca ao adicionar.", preco: 5.00, img: "https://images.unsplash.com/photo-1584225064785-c62a8b43d148?w=400" },
-    { id: 29, cat: "CERVEJAS", nome: "Long Neck 330ml ", desc: "Escolha a marca ao adicionar.", preco: 10.00, img: "https://images.unsplash.com/photo-1551731599-c020c3826321?w=400" }
+    { id: 28, cat: "CERVEJAS", nome: "Latas 269ml ", desc: "Escolha a marca ao adicionar.", preco: 5.00, img: "cerv.jpg" },
+    { id: 29, cat: "CERVEJAS", nome: "Long Neck 330ml ", desc: "Escolha a marca ao adicionar.", preco: 10.00, img: "long.jpeg" }
 ];
 
         let carrinho = [];
@@ -688,10 +688,16 @@ window.atualizarCarrinho = () => {
     const bairroSel = bairroElemento.value;
     let taxa = 0;
     if (bairroSel) {
-        taxa = (bairroSel === "Itinga-PA" || bairroSel === "Paulistão") ? 4.00 : 2.00;
+        if (bairroSel === "Itinga-PA") {
+            taxa = 4.00;
+        } else if (bairroSel === "Paulistão") {
+            taxa = 8.00;
+        } else {
+            taxa = 2.00; // taxa padrão para outros bairros
+        }
     }
 
-    // AQUI ESTÁ A CORREÇÃO: Usar i.precoFinal em vez de i.preco
+    // Correção: usar i.precoFinal em vez de i.preco
     const subtotal = carrinho.reduce((acc, i) => acc + (i.precoFinal * i.qtd), 0);
     const totalGeral = subtotal + taxa;
 

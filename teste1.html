@@ -1,0 +1,155 @@
+const admin = require('firebase-admin');
+const { ThermalPrinter, PrinterTypes } = require('node-thermal-printer');
+
+// Inicialização Firebase
+const serviceAccount = require('./firebase-credenciais.json');
+admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
+const db = admin.firestore();
+
+console.log('🖨️ Servidor SUSHIMAIS iniciado (modo rede)...');
+
+// Defina os IPs das impressoras
+const IMPRESSORA_COZINHA = "192.168.1.40";
+const IMPRESSORA_PRINCIPAL = "192.168.1.41";
+
+// Função de impressão térmica via rede
+async function imprimirTermico(printerIP, tipoCupom, pedido) {
+  try {
+    const largura = 48; // ou 64 se for impressora 80mm
+
+    let printer = new ThermalPrinter({
+      type: PrinterTypes.EPSON,
+      interface: `tcp://${printerIP}:9100`, // conexão direta via IP
+      width: largura,
+      removeSpecialCharacters: true
+    });
+
+    printer.alignCenter();
+
+    if (tipoCupom === 'COZINHA') {
+      printer.setTextDoubleHeight();
+      printer.setTextDoubleWidth();
+      printer.println("= COMANDA COZINHA =");
+      printer.setTextNormal();
+      printer.newLine();
+
+      printer.bold(true);
+      printer.setTextDoubleHeight();
+      printer.setTextDoubleWidth();
+      printer.println(`CLIENTE: ${pedido.nome || 'BALCAO'}`);
+      printer.setTextNormal();
+      printer.bold(false);
+
+      printer.drawLine();
+      printer.alignLeft();
+
+      (pedido.itens || []).forEach(item => {
+        printer.bold(true);
+        printer.setTextDoubleHeight();
+        printer.setTextDoubleWidth();
+        printer.println(`${item.nome} (${item.qtd}x)`);
+        printer.setTextNormal();
+        printer.bold(false);
+        if (item.obs) printer.println(`OBS ITEM: ${item.obs}`);
+        printer.drawLine();
+      });
+
+      if (pedido.obs) {
+        printer.newLine();
+        printer.bold(true);
+        printer.println(`OBS GERAL: ${pedido.obs}`);
+        printer.bold(false);
+      }
+    }
+
+    else if (tipoCupom === 'CLIENTE') {
+      printer.setTextDoubleHeight();
+      printer.setTextDoubleWidth();
+      printer.bold(true);
+      printer.println("SUSHIMAIS");
+      printer.bold(false);
+      printer.setTextNormal();
+      printer.newLine();
+
+      printer.alignLeft();
+      printer.println(`CLIENTE: ${pedido.nome}`);
+      if (pedido.tel) printer.println(`TEL: ${pedido.tel}`);
+      if (pedido.end) printer.println(`END: ${pedido.end} - ${pedido.bairro}`);
+
+      const agora = new Date();
+      printer.println(`DATA/HORA: ${agora.toLocaleString('pt-BR')}`);
+
+      printer.drawLine();
+      printer.bold(true);
+      printer.alignCenter();
+      printer.println("ITENS DO PEDIDO");
+      printer.bold(false);
+      printer.alignLeft();
+
+      (pedido.itens || []).forEach(item => {
+        let linha = `${item.qtd}x ${item.nome}`;
+        if (item.obs) linha += ` - OBS: ${item.obs}`;
+        printer.tableCustom([{ text: linha, align: "LEFT", width: 1 }]);
+      });
+
+      if (pedido.obs) {
+        printer.newLine();
+        printer.println(`OBS GERAL: ${pedido.obs}`);
+      }
+
+      printer.drawLine();
+      printer.alignRight();
+      if (pedido.pagamento) printer.println(`PAGAMENTO: ${pedido.pagamento}`);
+
+      printer.newLine();
+      printer.bold(true);
+      printer.setTextDoubleHeight();
+      printer.setTextDoubleWidth();
+      printer.alignCenter();
+      printer.println(`TOTAL: R$ ${pedido.totalFinal.toFixed(2)}`);
+      printer.bold(false);
+      printer.setTextNormal();
+
+      printer.newLine();
+      printer.alignCenter();
+      printer.println("Obrigado pela preferência!");
+      printer.println("SUSHIMAIS");
+    }
+
+    printer.newLine();
+    printer.cut();
+
+    const enviado = await printer.execute();
+    if (enviado) {
+      console.log(`✅ Impresso com sucesso em ${printerIP} (${tipoCupom})`);
+    } else {
+      console.error(`❌ Falha ao enviar para ${printerIP}`);
+    }
+
+  } catch (error) {
+    console.error("❌ Erro interno:", error.message);
+  }
+}
+
+// Listener Firestore
+db.collection('pedidos').onSnapshot(snapshot => {
+  snapshot.docChanges().forEach(change => {
+    const pedido = change.doc.data();
+
+    if (change.type === 'modified' && pedido.reimprimir === true) {
+      console.log(`🔄 Reimprimindo pedido ${change.doc.id}...`);
+      imprimirTermico(IMPRESSORA_PRINCIPAL, 'CLIENTE', pedido);
+      db.collection('pedidos').doc(change.doc.id).update({ reimprimir: false });
+    }
+
+    if (change.type === 'added') {
+      const isDelivery = pedido.tel && pedido.end;
+      if (isDelivery) {
+        imprimirTermico(IMPRESSORA_COZINHA, 'COZINHA', pedido);
+        imprimirTermico(IMPRESSORA_PRINCIPAL, 'CLIENTE', pedido);
+      } else {
+        imprimirTermico(IMPRESSORA_COZINHA, 'COZINHA', pedido);
+      }
+    }
+  });
+});
