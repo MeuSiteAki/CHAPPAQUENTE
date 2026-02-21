@@ -78,12 +78,16 @@ header {
     width: auto;
     animation: pulse 2s infinite;
     border-radius: 50px;
+    
 }
 
 .logo-text {
     font-weight: 800;
     font-size: 1.1rem;
     text-transform: uppercase;
+    
+    border-radius: 20px;
+    padding: 10px;
 }
 
 .logo-text span { color: var(--gold); }
@@ -131,6 +135,7 @@ header {
     font-weight: bold;
     text-align: center;
     transition: 0.2s;
+    box-shadow: 1px 1px 1px rgb(255, 255, 255);
 }
 
 #nav-cats .cat-btn:nth-child(4) { grid-column: 2 / span 2; }
@@ -160,7 +165,7 @@ header {
 /* --- CARDS DE PRODUTO --- */
 .produto-card {
     background: var(--glass);
-    border: 1px solid var(--glass-border);
+    border: 3px solid rgba(255, 255, 255, 0.274);
     border-radius: 15px;
     padding: 12px;
     display: flex;
@@ -329,6 +334,29 @@ header {
 .swal2-container {
     z-index: 99999 !important;
 }
+.stepper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255,255,255,0.05);
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 8px;
+}
+.stepper button {
+    background: var(--grad);
+    border: none;
+    color: white;
+    width: 25px;
+    height: 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.stepper span {
+    margin: 0 10px;
+}
+
     </style>
 </head>
 
@@ -352,6 +380,7 @@ header {
    </main>
 
    <div class="floating-actions"
+   
         style="position: fixed; bottom: 20px; right: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 2000;">
         <button onclick="window.scrollTo(0,0)"
             style="width:50px; height:50px; border-radius:15px; background:#333; color:white; border:none; cursor:pointer;">
@@ -366,57 +395,77 @@ header {
    </div>
 
    <div id="carrinho-lateral">
-      <div class="cart-header">
-          <h2 style="margin:0; color:var(--gold); font-size: 1.1rem;"><i class="fas fa-shopping-basket"> MEU CARRINHO</i></h2>
-          <button onclick="toggleCart(false)"
-              style="background:none; border:none; color:white; font-size:2rem; cursor:pointer;">&times;</button>
-      </div>
-      <div id="itens-checkout" class="lista-scroll"></div>
-      <div class="cart-footer">
-          <div class="campo"><label>Nome:</label><input type="text" id="nome"></div>
-<div class="campo"><label>Telefone:</label><input type="tel" id="telefone" placeholder="(00) 00000-0000"></div>
+    <div class="cart-header" style="display: flex; flex-direction: column; align-items: flex-start;">
+        <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+            <h2 style="margin:0; color:var(--gold); font-size: 1.1rem;">
+                <i class="fas fa-shopping-basket"> MEU CARRINHO</i>
+            </h2>
+            <button onclick="toggleCart(false)" style="background:none; border:none; color:white; font-size:2rem; cursor:pointer;">&times;</button>
+        </div>
+        
+        <div style="display: flex; gap: 15px; margin-top: 5px;">
+            <label style="font-size: 0.75rem; color: #eee; cursor: pointer; display: flex; align-items: center;">
+                <input type="radio" name="tipo_pedido" value="entrega" checked onclick="atualizarCarrinho()" style="margin-right: 4px; accent-color: var(--gold);"> 🏍️ Entrega
+            </label>
+            <label style="font-size: 0.75rem; color: #eee; cursor: pointer; display: flex; align-items: center;">
+                <input type="radio" name="tipo_pedido" value="retirada" onclick="atualizarCarrinho()" style="margin-right: 4px; accent-color: var(--gold);"> 🏪 Retirada no Local
+            </label>
+        </div>
+    </div>
 
-<div class="campo">
-    <label>Bairro:</label>
-    <select id="bairro" onchange="atualizarCarrinho()">
-        <option value="">Selecione o Bairro</option>
-        <option value="Centro">Centro</option>
-        <option value="Coqueiral">Coqueiral</option>
-        <option value="Vila Emanuela">Vila Emanuela</option>
-        <option value="Célio Braz">Célio Braz</option>
-        <option value="Vila Samuel">Vila Samuel</option>
-        <option value="Jadim Planalto">Jardim Planalto</option>
-        <option value="Parq. Primavera">Parq. Primavera</option>
-        <option value="São Sebastião">São Sebastião</option>
-        <option value="Paraiso">Paraiso</option>
-        <option value="São João">São João</option>
-        <option value="Vila Jamily">Vila Jamily</option>
-        <option value="Itinga-PA">Itinga-PA</option>
-        <option value="Paulistão">Paulistão</option>
-    </select>
+    <div id="itens-checkout" class="lista-scroll" style="flex: 1; overflow-y: auto; padding: 10px 0;"></div>
+
+    <div class="cart-footer">
+        <div class="campo"><label>Nome:</label><input type="text" id="nome"></div>
+        <div class="campo"><label>Telefone:</label><input type="tel" id="telefone" placeholder="(00) 00000-0000"></div>
+
+        <div id="bloco-endereco">
+            <div class="campo">
+                <label>Bairro:</label>
+                <select id="bairro" onchange="atualizarCarrinho()">
+                    <option value="">Selecione o Bairro</option>
+                    <option value="Centro">Centro</option>
+                    <option value="Coqueiral">Coqueiral</option>
+                    <option value="Vila Emanuela">Vila Emanuela</option>
+                    <option value="Célio Braz">Célio Braz</option>
+                    <option value="Vila Samuel">Vila Samuel</option>
+                    <option value="Jadim Planalto">Jardim Planalto</option>
+                    <option value="Parq. Primavera">Parq. Primavera</option>
+                    <option value="São Sebastião">São Sebastião</option>
+                    <option value="Paraiso">Paraiso</option>
+                    <option value="São João">São João</option>
+                    <option value="Vila Jamily">Vila Jamily</option>
+                    <option value="Itinga-PA">Itinga-PA</option>
+                    <option value="Paulistão">Paulistão</option>
+                </select>
+            </div>
+            <div class="campo"><label>Endereço:</label><input type="text" id="endereco" placeholder="Rua/AV e Numero"></div>
+        </div>
+
+        <div class="campo">
+            <label>Pagamento:</label>
+            <select id="pagamento" onchange="document.getElementById('campo-troco').classList.toggle('hidden', this.value !== 'Dinheiro')">
+                <option value="-:-">-:-</option>
+                <option value="PIX">PIX</option>
+                <option value="Cartão">Cartão</option>
+                <option value="Dinheiro">Dinheiro</option>
+            </select>
+        </div>
+
+        <div class="campo hidden" id="campo-troco">
+            <label>Troco para quanto?</label><input type="number" id="troco">
+        </div>
+
+        <div style="display:flex; justify-content:space-between; font-weight:800; font-size:1.2rem; color:var(--gold); margin: 10px 0;">
+            <span>Total:</span>
+            <span id="total-cart">R$ 0,00</span>
+        </div>
+
+        <button onclick="processarPedido()" style="background:#25d366; color:white; border:none; width:100%; padding:15px; border-radius:12px; font-weight:800; cursor:pointer;">
+            FINALIZAR PEDIDO
+        </button>
+    </div>
 </div>
-          <div class="campo"><label>Endereço:</label><input type="text" id="endereco" placeholder="Rua/AV e Numero"></div>
-          <div class="campo">
-              <label>Pagamento:</label>
-              <select id="pagamento"
-                  onchange="document.getElementById('campo-troco').classList.toggle('hidden', this.value !== 'Dinheiro')">
-                  <option>-:-</option>
-                  <option value="PIX">PIX</option>
-                  <option value="Cartão">Cartão</option>
-                  <option value="Dinheiro">Dinheiro</option>
-              </select>
-          </div>
-          <div class="campo hidden" id="campo-troco"><label>Troco para quanto?</label><input type="number" id="troco">
-          </div>
-          <div style="display:flex; justify-content:space-between; font-weight:800; font-size:1.2rem; color:var(--gold); margin-bottom:10px;">
-    <span>Total:</span>
-    <span id="total-cart">R$ 0,00</span> </div>
-          <button onclick="processarPedido()"
-              style="background:#25d366; color:white; border:none; width:100%; padding:15px; border-radius:12px; font-weight:800; cursor:pointer;">FINALIZAR
-              PEDIDO</button>
-      </div>
-   </div>
-
    <script>
       window.addEventListener('scroll', () => {
     const header = document.querySelector('header');
@@ -443,7 +492,7 @@ function verificarStatusLoja() {
     const minutos = agora.getMinutes();
     const tempoAtual = (hora * 60) + minutos; // Converte tudo para minutos para facilitar
 
-    const inicio = (10 * 60) + 30; // 18:30 em minutos
+    const inicio = (18 * 60) + 30; // 18:30 em minutos
     const fim = (23 * 60) + 59;    // 23:59 em minutos
 
     const statusElemento = document.getElementById('status-loja');
@@ -497,35 +546,35 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
         const produtos = [
-    { id: 1, cat: "SIMPLES", nome: "Chappa Kids", desc: "Pão brioche, carne artesanal - 75g, queijo, presunto, tomate e alface.", preco: 13.00, img: "simples.jpg" },
-    { id: 2, cat: "SIMPLES", nome: "Chappa Quente", desc: "Pão brioche, carne artesanal 75g, queijo, presunto, cheddar, tomate e alface.", preco: 14.00, img: "ham2.webp" },
-    { id: 3, cat: "SIMPLES", nome: "X-Burguer", desc: "Pão brioche, carne artesanal 75g, queijo, presunto, salsicha, tomate e alface.", preco: 15.00, img: "xbur.jpg" },
-    { id: 4, cat: "SIMPLES", nome: "X-Salada Especial", desc: "Pão brioche, carne artesanal 75g, queijo, presunto, ovo, tomate e alface.", preco: 15.00, img: "salaes.jpg" },
-    { id: 5, cat: "SIMPLES", nome: "X-Calabresa", desc: "Pão brioche, carne artesanal 75g, queijo, presunto, salsicha, calabresa, tomate e alface.", preco: 16.00, img: "cala2.jpg" },
-    { id: 6, cat: "SIMPLES", nome: "X-Bacon", desc: "Pão brioche, carne artesanal 75g, queijo, presunto, salsicha, bacon, tomate e alface.", preco: 17.00, img: "xbac.jpg" },
-    { id: 7, cat: "SIMPLES", nome: "X-Tudo", desc: "Pão brioche, carne artesanal 75g, queijo, presunto, ovo, salsicha, calabresa, bacon, tomate e alface.", preco: 18.00, img: "xtudo.jpg" },
-    { id: 8, cat: "SIMPLES", nome: "X-Queijo Especial", desc: "Pão brioche, 2 carnes artesanais 75g, 2 queijos, calabresa, salsicha, cheddar, tomate e alface.", preco: 20.00, img: "4quei.jpeg" },
-    { id: 9, cat: "SIMPLES", nome: "Mega Chappa", desc: "Pão brioche, 2 carnes artesanais 75g, queijo, presunto, ovo, cheddar, salsicha, calabresa, tomate e alface.", preco: 26.00, img: "chap.jpg" },
-    { id: 10, cat: "SIMPLES", nome: "Cheddar Burguer", desc: "Pão brioche, 2 carnes artesanais 75g, 2 queijos, 2 presuntos, cheddar, salsicha, bacon, calabresa, tomate e alface.", preco: 28.00, img: "xche.webp" },
-    { id: 11, cat: "ARTESANAIS", nome: "Hambúrguer Clássico", desc: "Pão de hambúrguer, carne artesanal 120g, 2 queijos, barbecue, tomate alface e molho da casa.", preco: 18.00, img: "hamb.jpg" },
-    { id: 12, cat: "ARTESANAIS", nome: "Cheddar Bacon", desc: "Pão de hambúrguer, carne artesanal 120g, bacon, cheddar cremoso, barbecue, cebola, geleia de goiabada apimentada.", preco: 22.00, img: "ched.jpg" },
-    { id: 13, cat: "ARTESANAIS", nome: "Chappa Burguer Picante", desc: "Pão de hambúrguer, carne artesanal 120g, queijo, presunto, cheddar cremoso, banana da terra, geleia de goiabada apimentada, tomate e alface.", preco: 25.00, img: "pic.jpg" },
-    { id: 14, cat: "ARTESANAIS", nome: "Big Burguer Calabresa", desc: "Pão de hambúrguer, carnes artesanal 120g, queijos, presunto, calabresa, cheddar cremoso, geleia de goiabada apimentada, barbecue, tomate e alface.", preco: 27.00, img: "cala.webp" },
-    { id: 15, cat: "ARTESANAIS", nome: "X Bacon Duplo", desc: "Pão de hambúrguer, 2 carnes artesanal 120g, queijo, bacon, cheddar cremoso, geleia de goiabada apimentada, barbecue, tomate e alface.", preco: 27.00, img: "baco.webp" },
-    { id: 16, cat: "ARTESANAIS", nome: "Chappa Quente Especial", desc: "Pão de hambúrguer, 2 carnes artesanal 120g, 2 queijos, 2 presuntos, bacon, calabresa, banana da terra, cheddar cremoso, geleia de goiabada apimentada, barbecue, tomate e alface.", preco: 35.00, img: "xd.jpg" },
-    { id: 17, cat: "PETISCOS", nome: "Calabresa Frita Acebolada", desc: "Calabresa passada na chapa ao ponto, acebolada.", preco: 35.00, img: "cala3.jpg" },
-    { id: 18, cat: "PETISCOS", nome: "Carne Acebolada na Chappa", desc: "Carne ao ponto, acebolada na chappa.", preco: 50.00, img: "carn.jpg" },
-    { id: 19, cat: "PETISCOS", nome: "Combo do Chef", desc: "Calabresa especial e carne suculenta passadas na chapa ao ponto, acebolada, molho da casa e barbecue.", preco: 65.00, img: "carncala.jpg" },
-    { id: 20, cat: "BEBIDAS", nome: "Refrigerante 250ml", desc: "Escolha o sabor ao adicionar.", preco: 4.00, img: "rive.webp" },
-    { id: 21, cat: "BEBIDAS", nome: "Refrigerante 350ml", desc: "Escolha o sabor ao adicionar.", preco: 6.00, img: "coca.jpeg" },
-    { id: 22, cat: "BEBIDAS", nome: "Refrigerante 1L", desc: "Escolha o sabor ao adicionar.", preco: 10.00, img: "coca2.jpeg" },
-    { id: 23, cat: "BEBIDAS", nome: "Refrigerante 2L", desc: "Escolha o sabor ao adicionar.", preco: 15.00, img: "coca3.jpg" },
-    { id: 24, cat: "BEBIDAS", nome: "H2O Limoneto 500ml", desc: "", preco: 7.00, img: "limo.jpg" },
-    { id: 25, cat: "BEBIDAS", nome: "Água mineral (sem gás)", desc: "", preco: 3.00, img: "agua.jpg" },
-    { id: 26, cat: "BEBIDAS", nome: "Suco Natural 300ml", desc: "Escolha o sabor ao adicionar.", preco: 7.00, img: "suco.jpg" },
+    { id: 1, cat: "🍔SIMPLES", nome: "Chappa Kids", desc: "Pão brioche, carne artesanal  75g, queijo, presunto, tomate e alface.", preco: 13.00, img: "simples.jpg" },
+    { id: 2, cat: "🍔SIMPLES", nome: "Chappa Quente", desc: "Pão brioche, carne artesanal 75g, queijo, presunto, cheddar, tomate e alface.", preco: 14.00, img: "ham2.webp" },
+    { id: 3, cat: "🍔SIMPLES", nome: "X-Burguer", desc: "Pão brioche, carne artesanal 75g, queijo, presunto, salsicha, tomate e alface.", preco: 15.00, img: "xbur.jpg" },
+    { id: 4, cat: "🍔SIMPLES", nome: "X-Salada Especial", desc: "Pão brioche, carne artesanal 75g, queijo, presunto, ovo, tomate e alface.", preco: 15.00, img: "salaes.jpg" },
+    { id: 5, cat: "🍔SIMPLES", nome: "X-Calabresa", desc: "Pão brioche, carne artesanal 75g, queijo, presunto, salsicha, calabresa, tomate e alface.", preco: 16.00, img: "cala2.jpg" },
+    { id: 6, cat: "🍔SIMPLES", nome: "X-Bacon", desc: "Pão brioche, carne artesanal 75g, queijo, presunto, salsicha, bacon, tomate e alface.", preco: 17.00, img: "xbac.jpg" },
+    { id: 7, cat: "🍔SIMPLES", nome: "X-Tudo", desc: "Pão brioche, carne artesanal 75g, queijo, presunto, ovo, salsicha, calabresa, bacon, tomate e alface.", preco: 18.00, img: "xtudo.jpg" },
+    { id: 8, cat: "🍔SIMPLES", nome: "X-Queijo Especial", desc: "Pão brioche, 2 carnes artesanais 75g, 2 queijos, calabresa, salsicha, cheddar, tomate e alface.", preco: 20.00, img: "4quei.jpeg" },
+    { id: 9, cat: "🍔SIMPLES", nome: "Mega Chappa", desc: "Pão brioche, 2 carnes artesanais 75g, queijo, presunto, ovo, cheddar, salsicha, calabresa, tomate e alface.", preco: 26.00, img: "chap.jpg" },
+    { id: 10, cat: "🍔SIMPLES", nome: "Cheddar Burguer", desc: "Pão brioche, 2 carnes artesanais 75g, 2 queijos, 2 presuntos, cheddar, salsicha, bacon, calabresa, tomate e alface.", preco: 28.00, img: "xche.webp" },
+    { id: 11, cat: "🍔ARTESANAIS", nome: "Hambúrguer Clássico", desc: "Pão de hambúrguer, carne artesanal 120g, 2 queijos, barbecue, tomate alface e molho da casa.", preco: 18.00, img: "hamb.jpg" },
+    { id: 12, cat: "🍔ARTESANAIS", nome: "Cheddar Bacon", desc: "Pão de hambúrguer, carne artesanal 120g, bacon, cheddar cremoso, barbecue, cebola, geleia de goiabada apimentada.", preco: 22.00, img: "ched.jpg" },
+    { id: 13, cat: "🍔ARTESANAIS", nome: "Chappa Burguer Picante", desc: "Pão de hambúrguer, carne artesanal 120g, queijo, presunto, cheddar cremoso, banana da terra, geleia de goiabada apimentada, tomate e alface.", preco: 25.00, img: "pic.jpg" },
+    { id: 14, cat: "🍔ARTESANAIS", nome: "Big Burguer Calabresa", desc: "Pão de hambúrguer, carne artesanal 120g, queijos, presunto, calabresa, cheddar cremoso, geleia de goiabada apimentada, barbecue, tomate e alface.", preco: 27.00, img: "cala.webp" },
+    { id: 15, cat: "🍔ARTESANAIS", nome: "X Bacon Duplo", desc: "Pão de hambúrguer, 2 carnes artesanal 120g, queijo, bacon, cheddar cremoso, geleia de goiabada apimentada, barbecue, tomate e alface.", preco: 27.00, img: "baco.webp" },
+    { id: 16, cat: "🍔ARTESANAIS", nome: "Chappa Quente Especial", desc: "Pão de hambúrguer, 2 carnes artesanal 120g, 2 queijos, 2 presuntos, bacon, calabresa, banana da terra, cheddar cremoso, geleia de goiabada apimentada, barbecue, tomate e alface.", preco: 35.00, img: "xd.jpg" },
+    { id: 17, cat: "🥩TIRA-GOSTO", nome: "Calabresa Frita Acebolada", desc: "Calabresa passada na chapa ao ponto, acebolada.", preco: 35.00, img: "cala3.jpg" },
+    { id: 18, cat: "🥩TIRA-GOSTO", nome: "Carne Acebolada na Chappa", desc: "Carne ao ponto, acebolada na chappa.", preco: 50.00, img: "carn.jpg" },
+    { id: 19, cat: "🥩TIRA-GOSTO", nome: "Combo do Chef", desc: "Calabresa especial e carne suculenta passadas na chapa ao ponto, acebolada, molho da casa e barbecue.", preco: 65.00, img: "carncala.jpg" },
+    { id: 20, cat: "🥤BEBIDAS", nome: "Refrigerante 250ml", desc: "Escolha o sabor ao adicionar.", preco: 4.00, img: "rive.webp" },
+    { id: 21, cat: "🥤BEBIDAS", nome: "Refrigerante 350ml", desc: "Escolha o sabor ao adicionar.", preco: 6.00, img: "coca.jpeg" },
+    { id: 22, cat: "🥤BEBIDAS", nome: "Refrigerante 1L", desc: "Escolha o sabor ao adicionar.", preco: 10.00, img: "coca2.jpeg" },
+    { id: 23, cat: "🥤BEBIDAS", nome: "Refrigerante 2L", desc: "Escolha o sabor ao adicionar.", preco: 15.00, img: "coca3.jpg" },
+    { id: 24, cat: "🥤BEBIDAS", nome: "H2O Limoneto 500ml", desc: "", preco: 7.00, img: "limo.jpg" },
+    { id: 25, cat: "🥤BEBIDAS", nome: "Água mineral (sem gás)", desc: "", preco: 3.00, img: "agua.jpg" },
+    { id: 26, cat: "🥤BEBIDAS", nome: "Suco Natural 300ml", desc: "Escolha o sabor ao adicionar.", preco: 7.00, img: "suco.jpg" },
     // --- ADIÇÃO DA CATEGORIA CERVEJAS ---
-    { id: 28, cat: "CERVEJAS", nome: "Latas 269ml ", desc: "Escolha a marca ao adicionar.", preco: 5.00, img: "cerv.jpg" },
-    { id: 29, cat: "CERVEJAS", nome: "Long Neck 330ml ", desc: "Escolha a marca ao adicionar.", preco: 10.00, img: "long.jpeg" }
+    { id: 28, cat: "🍺CERVEJAS", nome: "Latas 269ml ", desc: "Escolha a marca ao adicionar.", preco: 5.00, img: "cerv.jpg" },
+    { id: 29, cat: "🍺CERVEJAS", nome: "Long Neck 330ml ", desc: "Escolha a marca ao adicionar.", preco: 10.00, img: "long.jpeg" }
 ];
 
         let carrinho = [];
@@ -540,8 +589,8 @@ const db = getFirestore(app);
                         <img src="${p.img}" class="img-prod">
                         <div class="nome-item">${p.nome}</div>
                         <div class="preco-item">R$ ${p.preco.toFixed(2)}</div>
-                        <button class="btn-info" onclick="verDetalhes(${p.id})">DESCRIÇÃO</button><br>
-                        <button class="btn-add-mini" onclick="prepararAdd(${p.id})">ADICIONAR</button>
+                        <button class="btn-info" onclick="verDetalhes(${p.id})"> ❗DESCRIÇÃO</button><br>
+                        <button class="btn-add-mini" onclick="prepararAdd(${p.id})">✅ADICIONAR</button>
                     </div>`;
             });
             document.querySelectorAll('.cat-btn').forEach(b => b.classList.toggle('active', b.innerText.includes(cat)));
@@ -554,19 +603,15 @@ const db = getFirestore(app);
 
 window.prepararAdd = (id) => {
     const p = produtos.find(item => item.id === id);
-    const isBebida = p.cat === "BEBIDAS";
-    const isCerveja = p.cat === "CERVEJAS";
+    const isBebida = p.cat === "🥤BEBIDAS";
+    const isCerveja = p.cat === "🍺CERVEJAS";
 
-    // Mapeamento de Opções (Bebidas e Cervejas)
     const mapaOpcoes = {
-        // Bebidas
         "Refrigerante 250ml": ["River"],
         "Refrigerante 350ml": ["Coca-Cola", "Fanta", "Coca 0", " Guaraná","Pespi Black","G. Jesus","Sprite","Fanta Uva"],
         "Refrigerante 1L": ["Coca-Cola", "Guaraná"],
         "Refrigerante 2L": ["Coca-Cola", "Guaraná"],
         "Suco Natural 300ml": ["Maracujá", "Caja", "Acerola","Cupuaçu","Goiaba"],
-        
-        // Cervejas (Baseado na sua lista)
         "Latas 269ml ": ["Skol", "Brahma", "Amstel", "Original"],
         "Long Neck 330ml ": ["Heineken", "Corona", "Stella", "Budweiser"]
     };
@@ -574,7 +619,6 @@ window.prepararAdd = (id) => {
     const opcoesDisponiveis = mapaOpcoes[p.nome] || ["Padrão"];
     let htmlConteudo = "";
 
-    // Se for Bebida OU Cerveja, mostra interface de seleção de marca/sabor
     if (isBebida || isCerveja) {
         htmlConteudo = `
             <div style="text-align:left; color:#fff; font-size:0.9rem;">
@@ -592,7 +636,6 @@ window.prepararAdd = (id) => {
                 <input id="obs" class="swal2-input" placeholder="Ex: Bem gelada..." style="width:90%;">
             </div>`;
     } else {
-        // Layout de adicionais para Lanches e Petiscos
         htmlConteudo = `
             <div style="text-align:left; color:#fff; font-size:0.85rem; max-height: 350px; overflow-y: auto; padding-right: 10px;">
                 <label>Observação:</label>
@@ -617,7 +660,7 @@ window.prepararAdd = (id) => {
         title: (isBebida || isCerveja) ? p.nome : 'Personalizar',
         html: htmlConteudo,
         showCancelButton: true,
-        confirmButtonText: 'Adicionar',
+        confirmButtonText: '✅ Adicionar',
         confirmButtonColor: '#0faf00',
         background: '#1a1a1a',
         preConfirm: () => {
@@ -667,10 +710,20 @@ window.prepararAdd = (id) => {
 
             const item = { ...p, precoFinal: p.preco + extras_valor, obs: d.obs, extras: extras_texto };
             const idx = carrinho.findIndex(c => c.id === item.id && c.obs === item.obs && c.extras === item.extras);
-            if (idx > -1) carrinho[idx].qtd++;
-            else carrinho.push({ ...item, qtd: 1 });
+            
+            if (idx > -1) {
+                carrinho[idx].qtd++;
+            } else {
+                carrinho.push({ ...item, qtd: 1 });
+            }
             
             atualizarCarrinho();
+
+            // --- AQUI ESTÁ O COMANDO QUE FAZ O AVISO APARECER ---
+            Toast.fire({
+                icon: 'success',
+                title: `${item.nome} no carrinho!`
+            });
         }
     });
 };
@@ -681,63 +734,127 @@ window.prepararAdd = (id) => {
             if (v >= 0) el.innerText = v;
         };
 
+// 1. Configuração do Aviso (Toast) - Coloque isso logo no início do seu <script>
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+    background: '#fff',
+    color: '#1a1a1a',
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+});
+
+// 2. Função Atualizar Carrinho com Lógica de Retirada e Entrega
 window.atualizarCarrinho = () => {
+    // Referências aos elementos
     const bairroElemento = document.getElementById('bairro');
+    const blocoEndereco = document.getElementById('bloco-endereco'); // Div que envolve bairro e rua
+    const inputEndereco = document.getElementById('endereco');
+    
+    // Captura o valor do rádio selecionado (entrega ou retirada)
+    const tipoPedido = document.querySelector('input[name="tipo_pedido"]:checked')?.value;
+
     if (!bairroElemento) return;
 
-    const bairroSel = bairroElemento.value;
     let taxa = 0;
-    if (bairroSel) {
-        if (bairroSel === "Itinga-PA") {
-            taxa = 4.00;
-        } else if (bairroSel === "Paulistão") {
-            taxa = 8.00;
-        } else {
-            taxa = 2.00; // taxa padrão para outros bairros
+
+    // LÓGICA DE VISIBILIDADE E TAXA
+    if (tipoPedido === "retirada") {
+        // Se for retirada, esconde o bloco de endereço e zera a taxa
+        if (blocoEndereco) blocoEndereco.style.display = 'none';
+        taxa = 0;
+        
+        // Limpa os campos para não enviar dados antigos se o usuário mudar de ideia
+        bairroElemento.value = "";
+        inputEndereco.value = "RETIRADA NO LOCAL";
+    } else {
+        // Se for entrega, mostra os campos e calcula a taxa
+        if (blocoEndereco) blocoEndereco.style.display = 'block';
+        
+        // Limpa o texto de retirada caso o usuário volte para entrega
+        if (inputEndereco.value === "RETIRADA NO LOCAL") inputEndereco.value = "";
+
+        const bairroSel = bairroElemento.value;
+        if (bairroSel) {
+            if (bairroSel === "Itinga-PA") {
+                taxa = 4.00;
+            } else if (bairroSel === "Paulistão") {
+                taxa = 8.00;
+            } else {
+                taxa = 2.00; // Taxa padrão para demais bairros
+            }
         }
     }
 
-    // Correção: usar i.precoFinal em vez de i.preco
+    // CÁLCULOS DE VALORES
     const subtotal = carrinho.reduce((acc, i) => acc + (i.precoFinal * i.qtd), 0);
     const totalGeral = subtotal + taxa;
 
-    // Atualiza contador da bolinha
+    // ATUALIZAÇÃO DA INTERFACE (Bolinha flutuante)
     const cartCount = document.getElementById('cart-count');
     if (cartCount) cartCount.innerText = carrinho.reduce((acc, i) => acc + i.qtd, 0);
     
-    // Atualiza o Total no Carrinho Lateral
+    // ATUALIZAÇÃO DO TOTAL NO CARRINHO
     const displayTotal = document.getElementById('total-cart');
     if (displayTotal) {
         displayTotal.innerHTML = `
-            <small style="font-size: 0.7rem; color: #aaa; font-weight: 400;">
-                ${taxa > 0 ? 'Entrega: R$ ' + taxa.toFixed(2) + ' +' : ''} 
-            </small> 
-            R$ ${totalGeral.toFixed(2)}
+            <div style="text-align: right;">
+                <small style="font-size: 0.7rem; color: #aaa; font-weight: 400; display: block;">
+                    ${tipoPedido === 'retirada' ? 'Retirada: Grátis' : (taxa > 0 ? 'Entrega: R$ ' + taxa.toFixed(2) + ' +' : 'Selecione o bairro')}
+                </small> 
+                R$ ${totalGeral.toFixed(2)}
+            </div>
         `;
     }
 
-    // Renderiza itens na lista de checkout
-    // Dentro da função atualizarCarrinho...
-const lista = document.getElementById('itens-checkout');
-if (lista) {
-    lista.innerHTML = carrinho.map((i, idx) => `
-        <div class="item-checkout">
-            <div style="padding-right: 30px;"> <strong>${i.qtd}x ${i.nome}</strong> 
-                <span style="display:block; color:var(--gold); font-weight:bold;">
-                    R$ ${(i.precoFinal * i.qtd).toFixed(2)}
-                </span>
-                ${i.extras ? `<small style="color:#aaa; display:block; line-height:1.2; margin-top:4px;">+ ${i.extras}</small>` : ''}
-                ${i.obs ? `<p style="margin:4px 0 0; font-size:0.75rem; color:#888; font-style:italic;">Obs: ${i.obs}</p>` : ''}
-            </div>
-            
-            <button class="btn-remover" onclick="remover(${idx})" title="Remover item">
-                <i class="fas fa-trash-alt"></i>
-            </button>
-        </div>`).join('');
-}
-}
-        window.remover = (idx) => { carrinho.splice(idx, 1); atualizarCarrinho(); };
-        window.toggleCart = (s) => document.getElementById('carrinho-lateral').classList.toggle('active', s);
+    // RENDERIZAÇÃO DOS ITENS
+    const lista = document.getElementById('itens-checkout');
+    if (lista) {
+        if (carrinho.length === 0) {
+            lista.innerHTML = '<p style="text-align:center; color:#666; margin-top:20px;">Seu carrinho está vazio</p>';
+        } else {
+            lista.innerHTML = carrinho.map((i, idx) => `
+                <div class="item-checkout" style="border-bottom: 1px solid #333; padding: 10px 0;">
+                    <div style="padding-right: 30px;"> 
+                        <strong style="font-size: 0.9rem;">${i.qtd}x ${i.nome}</strong> 
+                        <span style="display:block; color:var(--gold); font-weight:bold; font-size: 0.85rem;">
+                            R$ ${(i.precoFinal * i.qtd).toFixed(2)}
+                        </span>
+                        ${i.extras ? `<small style="color:#aaa; display:block; line-height:1.2; margin-top:4px; font-size: 0.7rem;">+ ${i.extras}</small>` : ''}
+                        ${i.obs ? `<p style="margin:4px 0 0; font-size:0.7rem; color:#888; font-style:italic;">Obs: ${i.obs}</p>` : ''}
+                    </div>
+                    <button class="btn-remover" onclick="remover(${idx})" title="Remover item" style="background:none; border:none; color:#ff4444; cursor:pointer;">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>`).join('');
+        }
+    }
+};
+
+// 3. Funções de Controle
+window.remover = (idx) => { 
+    carrinho.splice(idx, 1); 
+    atualizarCarrinho(); 
+};
+
+window.toggleCart = (s) => {
+    const cart = document.getElementById('carrinho-lateral');
+    if(cart) cart.classList.toggle('active', s);
+};
+
+// 4. Lembre-se de adicionar o Toast dentro da sua função prepararAdd, logo após atualizarCarrinho():
+/*
+    atualizarCarrinho();
+    Toast.fire({
+        icon: 'success',
+        title: 'Adicionado ao carrinho!'
+    });
+*/
 
         // --- FUNÇÕES PIX BR CODE CORRIGIDAS ---
         function crc16(payload) {
@@ -778,18 +895,29 @@ if (lista) {
     return payload + crc16(payload);
 }
 
-  window.processarPedido = () => {
+window.processarPedido = () => {
     const pag = document.getElementById('pagamento').value;
     const bairroSel = document.getElementById('bairro').value;
+    // Captura o tipo de pedido
+    const tipoPedido = document.querySelector('input[name="tipo_pedido"]:checked')?.value || 'entrega';
     
     if (carrinho.length === 0) return Swal.fire('Erro', 'Carrinho vazio!', 'error');
-    if (!bairroSel) return Swal.fire('Erro', 'Selecione um bairro!', 'error');
+    
+    // TRAVA INTELIGENTE: Só exige bairro se for entrega
+    if (tipoPedido === 'entrega' && !bairroSel) {
+        return Swal.fire('Erro', 'Selecione um bairro para entrega!', 'error');
+    }
+    
     if (pag === "-:-") return Swal.fire('Erro', 'Selecione a forma de pagamento!', 'error');
 
-    // Fecha o carrinho para não atrapalhar a visão
     toggleCart(false);
 
-    let taxa = (bairroSel === "Itinga-PA" || bairroSel === "Paulistão") ? 4.00 : 2.00;
+    // Lógica de taxa: 0 para retirada, caso contrário calcula pelo bairro
+    let taxa = 0;
+    if (tipoPedido === 'entrega') {
+        taxa = (bairroSel === "Itinga-PA" || bairroSel === "Paulistão") ? 4.00 : 2.00;
+    }
+
     const subtotalComAdicionais = carrinho.reduce((acc, i) => acc + (i.precoFinal * i.qtd), 0);
     const totalParaPix = subtotalComAdicionais + taxa;
 
@@ -815,7 +943,7 @@ if (lista) {
                 </div>`,
             showConfirmButton: false, 
             background: '#1a1a1a',
-            allowOutsideClick: false, // Evita fechar sem querer
+            allowOutsideClick: false,
             didOpen: () => {
                 document.getElementById('conf-pix').onclick = () => { Swal.close(); finalizar(); }
             }
@@ -825,43 +953,51 @@ if (lista) {
     }
 };
 
-        window.copyPix = () => {
-            const copyText = document.getElementById("pixCode");
-            copyText.select();
-            copyText.setSelectionRange(0, 99999);
-            navigator.clipboard.writeText(copyText.value);
-            Swal.showValidationMessage('Copiado para a área de transferência!');
-        };
+window.copyPix = () => {
+    const copyText = document.getElementById("pixCode");
+    copyText.select();
+    copyText.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(copyText.value);
+    Swal.showValidationMessage('Copiado!');
+};
 
- async function finalizar() {
+async function finalizar() {
     const nome = document.getElementById('nome').value;
     const telefone = document.getElementById('telefone').value;
     const bairro = document.getElementById('bairro').value;
     const enderecoUser = document.getElementById('endereco').value;
     const pag = document.getElementById('pagamento').value;
     const trocoPara = document.getElementById('troco').value;
+    const tipoPedido = document.querySelector('input[name="tipo_pedido"]:checked')?.value || 'entrega';
     
-    if (!nome || !bairro || !enderecoUser || !pag || pag === "-:-") {
-        return Swal.fire('Atenção', 'Preencha todos os campos obrigatórios!', 'warning');
+    // VALIDAÇÃO CORRIGIDA: Se for retirada, pula bairro e endereço
+    if (!nome || pag === "-:-") {
+        return Swal.fire('Atenção', 'Preencha seu nome e pagamento!', 'warning');
     }
 
-    // 1. Recalcula a taxa de entrega
-    let taxa = 0;
-    if (bairro === "Itinga-PA" || bairro === "Paulistão") taxa = 4.00;
-    else if (bairro) taxa = 2.00;
+    if (tipoPedido === 'entrega' && (!bairro || !enderecoUser)) {
+        return Swal.fire('Atenção', 'Preencha Bairro e Endereço para entrega!', 'warning');
+    }
 
-    // 2. Calcula o Subtotal usando precoFinal (que inclui os adicionais)
+    // 1. Recalcula a taxa (Zera se for retirada)
+    let taxa = 0;
+    if (tipoPedido === 'entrega') {
+        if (bairro === "Itinga-PA" || bairro === "Paulistão") taxa = 4.00;
+        else if (bairro) taxa = 2.00;
+    }
+
     const subtotal = carrinho.reduce((acc, i) => acc + (i.precoFinal * i.qtd), 0);
     const totalFinalComTaxa = subtotal + taxa;
 
     if (carrinho.length === 0) return Swal.fire('Erro', 'Seu carrinho está vazio!', 'error');
 
-    // 3. Salva no Firebase
     try {
+        // 3. Salva no Firebase
         await addDoc(collection(db, "pedidos"), {
             nome,
             telefone,
-            end: `${enderecoUser} - ${bairro}`,
+            tipoPedido: tipoPedido.toUpperCase(),
+            end: tipoPedido === 'entrega' ? `${enderecoUser} - ${bairro}` : 'RETIRADA NO LOCAL',
             pagamento: pag,
             taxaEntrega: taxa,
             totalFinal: totalFinalComTaxa, 
@@ -877,12 +1013,19 @@ if (lista) {
             data: serverTimestamp()
         });
 
-        // 4. Monta a Mensagem do WhatsApp detalhada
+        // 4. Monta a Mensagem do WhatsApp
         let msg = `*🍔 CHAPPA QUENTE BURGER*\n`;
+        msg += `*PEDIDO:* ${tipoPedido === 'entrega' ? '🏍️ ENTREGA' : '🏪 RETIRADA'}\n`;
         msg += `------------------------------\n`;
         msg += `*Cliente:* ${nome}\n`;
-        msg += `*End:* ${enderecoUser}\n`;
-        msg += `*Bairro:* ${bairro}\n`;
+        
+        if(tipoPedido === 'entrega') {
+            msg += `*End:* ${enderecoUser}\n`;
+            msg += `*Bairro:* ${bairro}\n`;
+        } else {
+            msg += `*Status:* Cliente buscará no local\n`;
+        }
+
         msg += `*Pgto:* ${pag}\n`;
         if(pag === "Dinheiro" && trocoPara) msg += `*Troco para:* R$ ${parseFloat(trocoPara).toFixed(2)}\n`;
         msg += `------------------------------\n\n`;
@@ -896,25 +1039,21 @@ if (lista) {
 
         msg += `------------------------------\n`;
         msg += `*Subtotal:* R$ ${subtotal.toFixed(2)}\n`;
-        msg += `*Taxa Entrega:* R$ ${taxa.toFixed(2)}\n`;
+        if(tipoPedido === 'entrega') msg += `*Taxa Entrega:* R$ ${taxa.toFixed(2)}\n`;
         msg += `*TOTAL: R$ ${totalFinalComTaxa.toFixed(2)}*`;
 
-        // 5. Abre WhatsApp e reinicia
         const foneWhats = "5599992247546";
-        window.open(`https://wa.me/${foneWhats}?text=${encodeURIComponent(msg)}`);
-        
-        await Swal.fire('Sucesso!', 'Pedido enviado com sucesso!', 'success');
-        location.reload();
+        window.location.href = `https://wa.me/${foneWhats}?text=${encodeURIComponent(msg)}`;
 
     } catch (e) {
         console.error("Erro ao salvar pedido: ", e);
-        Swal.fire('Erro', 'Não foi possível salvar seu pedido no banco de dados.', 'error');
+        Swal.fire('Erro', 'Não foi possível salvar seu pedido.', 'error');
     }
 }
 
 /// --- Inicialização das Categorias Corrigida ---
 // --- Inicialização 3 em cima, 2 em baixo ---
-const cats = ["ARTESANAIS", "SIMPLES", "PETISCOS", "BEBIDAS", "CERVEJAS"];
+const cats = ["🍔ARTESANAIS", "🍔SIMPLES", "🥩TIRA-GOSTO", "🥤BEBIDAS", "🍺CERVEJAS"];
 const nav = document.getElementById('nav-cats');
 
 if (nav) {
@@ -937,6 +1076,8 @@ if (nav) {
     // Carrega a primeira categoria
     if (typeof filtrar === "function") filtrar(cats[0]);
 }
+
+
     </script>
 
     <!-- FOOTER -->
