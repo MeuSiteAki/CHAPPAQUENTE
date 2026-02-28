@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="icon" href="logo.jpeg" type="image/jpeg">
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
     <style>
 :root {
     --primary: #fda500;
@@ -365,7 +366,7 @@ header {
    <header>
       <div class="logo">
           <img src="logo.jpeg" alt="Logo Burger Premium" class="logo-img">
-          <div class="logo-text">CHAPPA<span>QUENTE</span><br><span>BURGUER</span></div>
+          <div class="logo-text">CHAPPA  QUENTE</span><br><span>BURGUER</span></div>
           <div id="status-loja" class="status-badge">
     </div>
       </div>
@@ -439,7 +440,7 @@ header {
                     <option value="Paulistão">Paulistão</option>
                 </select>
             </div>
-            <div class="campo"><label>Endereço:</label><input type="text" id="endereco" placeholder="Rua/AV e Numero"></div>
+            <div class="campo"><label>Endereço:</label><input type="text" id="endereco" placeholder="Rua/AV, Numero, Ponto de Referências"></div>
         </div>
 
         <div class="campo">
@@ -492,7 +493,7 @@ function verificarStatusLoja() {
     const minutos = agora.getMinutes();
     const tempoAtual = (hora * 60) + minutos; // Converte tudo para minutos para facilitar
 
-    const inicio = (18 * 60) + 30; // 18:30 em minutos
+    const inicio = (10 * 60) + 30; // 18:30 em minutos
     const fim = (23 * 60) + 59;    // 23:59 em minutos
 
     const statusElemento = document.getElementById('status-loja');
@@ -657,7 +658,7 @@ window.prepararAdd = (id) => {
     }
 
     Swal.fire({
-        title: (isBebida || isCerveja) ? p.nome : 'Personalizar',
+        title: (isBebida || isCerveja) ? p.nome : 'OPCIONAL',
         html: htmlConteudo,
         showCancelButton: true,
         confirmButtonText: '✅ Adicionar',
@@ -895,15 +896,15 @@ window.toggleCart = (s) => {
     return payload + crc16(payload);
 }
 
+// ... (mantenha as funções crc16 e buildPixBRCode como estão)
+
 window.processarPedido = () => {
     const pag = document.getElementById('pagamento').value;
     const bairroSel = document.getElementById('bairro').value;
-    // Captura o tipo de pedido
     const tipoPedido = document.querySelector('input[name="tipo_pedido"]:checked')?.value || 'entrega';
     
     if (carrinho.length === 0) return Swal.fire('Erro', 'Carrinho vazio!', 'error');
     
-    // TRAVA INTELIGENTE: Só exige bairro se for entrega
     if (tipoPedido === 'entrega' && !bairroSel) {
         return Swal.fire('Erro', 'Selecione um bairro para entrega!', 'error');
     }
@@ -912,7 +913,6 @@ window.processarPedido = () => {
 
     toggleCart(false);
 
-    // Lógica de taxa: 0 para retirada, caso contrário calcula pelo bairro
     let taxa = 0;
     if (tipoPedido === 'entrega') {
         taxa = (bairroSel === "Itinga-PA" || bairroSel === "Paulistão") ? 4.00 : 2.00;
@@ -922,7 +922,12 @@ window.processarPedido = () => {
     const totalParaPix = subtotalComAdicionais + taxa;
 
     if (pag === 'PIX') {
-        const brCode = buildPixBRCode('+5599992247546', 'CARLOS FREITAS ROCHA', 'BRASIL', totalParaPix);
+        // --- CHAVE ATUALIZADA PARA O CNPJ ABAIXO ---
+        const chaveCnpj = '58646956000145'; 
+        const nomeRecebedor = 'FERNANDO MULLER XIMENDES DE SOUSA'; // Recomendo atualizar para o Nome Fantasia/Razão Social
+        const cidade = 'ITINGA-MA'; // Recomendo colocar a cidade correta (ex: BELEM)
+
+        const brCode = buildPixBRCode(chaveCnpj, nomeRecebedor, cidade, totalParaPix);
         const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(brCode)}`;
 
         Swal.fire({
@@ -1086,9 +1091,10 @@ if (nav) {
   <div class="footer-container">
 
     <div class="footer-block footer-contact">
+        <img style="width: 70px; border-radius: 100px;" src="logo.jpeg" alt="">
       <h3><i class="fa-solid fa-headset"></i> CONTATOS:</h3>
-      <p><a href="tel:+5599992261907">(99) 99226-1907</a></p>
-      <p>Endereço: Av. João Vieira (rua da draga), S/N,<br>Vila Emanuela, Itinga do Maranhão.</p>
+      <p><a href="tel:+5599992261907"> (99) 99158-6481 </a></p>
+      <p>Endereço: BR 010 - Pátio do Posto do Edinho<br> Itinga do Maranhão.</p>
     </div>
 
     <div class="footer-block footer-hours">
