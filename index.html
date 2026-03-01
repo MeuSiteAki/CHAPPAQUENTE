@@ -992,7 +992,7 @@ async function finalizar() {
     let taxa = 0;
     if (tipoPedido === 'entrega') {
         if (bairro === "Itinga-PA" || bairro === "Paulistão") taxa = 4.00;
-        else if (bairro) taxa = 2.00;
+        else if (bairro) taxa = 3.00;
     }
 
     const subtotal = carrinho.reduce((acc, i) => acc + (i.precoFinal * i.qtd), 0);
@@ -1086,7 +1086,15 @@ if (nav) {
     if (typeof filtrar === "function") filtrar(cats[0]);
 }
 
-
+// Bloqueios de segurança (mantidos como no original)
+document.addEventListener('keydown', function (e) {
+    if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) { e.preventDefault(); }
+    if (e.key === 'F12') { e.preventDefault(); }
+});
+document.addEventListener('keydown', function (event) {
+    if (event.ctrlKey && event.shiftKey && event.key === 'I') { event.preventDefault(); }
+});
+document.addEventListener('contextmenu', function (event) { event.preventDefault(); });
     </script>
 
     <!-- FOOTER -->
