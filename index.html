@@ -917,19 +917,24 @@ window.processarPedido = () => {
 
     toggleCart(false);
 
+    // --- LÓGICA DE TAXA SINCRONIZADA ---
     let taxa = 0;
     if (tipoPedido === 'entrega') {
-        taxa = (bairroSel === "Itinga-PA" || bairroSel === "Paulistão") ? 4.00 : 2.00;
+        // Se for Itinga ou Paulistão é 4.00, caso contrário 3.00 (igual ao finalizar)
+        if (bairroSel === "Itinga-PA" || bairroSel === "Paulistão") {
+            taxa = 4.00;
+        } else {
+            taxa = 3.00; // Aqui estava 2.00, por isso o erro de 1 real
+        }
     }
 
     const subtotalComAdicionais = carrinho.reduce((acc, i) => acc + (i.precoFinal * i.qtd), 0);
     const totalParaPix = subtotalComAdicionais + taxa;
 
     if (pag === 'PIX') {
-        // --- CHAVE ATUALIZADA PARA O CNPJ ABAIXO ---
         const chaveCnpj = '58646956000145'; 
-        const nomeRecebedor = 'FERNANDO MULLER XIMENDES DE SOUSA'; // Recomendo atualizar para o Nome Fantasia/Razão Social
-        const cidade = 'ITINGA-MA'; // Recomendo colocar a cidade correta (ex: BELEM)
+        const nomeRecebedor = 'FERNANDO MULLER'; // Abreviei para garantir compatibilidade no BR Code
+        const cidade = 'ITINGA-MA'; 
 
         const brCode = buildPixBRCode(chaveCnpj, nomeRecebedor, cidade, totalParaPix);
         const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(brCode)}`;
@@ -942,6 +947,7 @@ window.processarPedido = () => {
                         <img src="${qrUrl}" style="display:block; width:180px;">
                     </div>
                     <p style="font-weight:800; color:var(--gold); font-size:1.4rem; margin:0;">Total: R$ ${totalParaPix.toFixed(2)}</p>
+                    <p style="font-size:0.8rem; color:#aaa; margin-bottom:10px;">Clique abaixo para copiar o código</p>
                     <textarea id="pixCode" readonly style="width:100%; height:60px; background:#000; color:#0f0; border:1px solid #333; font-size:10px; padding:8px; border-radius:5px; resize:none; font-family:monospace; margin-top:10px;">${brCode}</textarea>
                     <button onclick="copyPix()" style="background:var(--gold); border:none; padding:12px; border-radius:8px; width:100%; margin-top:10px; font-weight:800; cursor:pointer; color:#000;">
                        <i class="fas fa-copy"></i> COPIAR CÓDIGO PIX
