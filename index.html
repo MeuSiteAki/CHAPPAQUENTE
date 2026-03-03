@@ -707,7 +707,7 @@ window.prepararAdd = (id) => {
                 Object.keys(precos).forEach(key => {
                     if (d[key] > 0) {
                         extras_valor += (d[key] * precos[key]);
-                        lista.push(`${d[key]}x ${nomes[key]}`);
+                        lista.push(`ADC: ${d[key]} ${nomes[key]}`);
                     }
                 });
                 extras_texto = lista.join(', ');
