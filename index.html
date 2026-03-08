@@ -108,44 +108,59 @@ header {
 .status-aberto { background: #00a73d; color: #fff; box-shadow: 0 0 10px rgba(0, 167, 61, 0.3); }
 .status-fechado { background: #d40000; color: #fff; }
 
-/* --- CATEGORIAS --- */
+/* --- CATEGORIAS (CORRIGIDO PARA 2 LINHAS) --- */
 #nav-cats {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    display: flex; /* Mudamos de grid para flex para melhor ajuste */
+    flex-wrap: wrap; /* Permite que os botões pulem para a linha de baixo */
+    justify-content: center; /* Centraliza os botões de baixo */
     gap: 8px;
-    padding: 12px 15px;
+    padding: 12px 10px;
     background: #111;
     position: fixed;
     top: var(--h-header);
     width: 100%;
-    height: var(--h-nav);
+    /* REMOVEMOS o height fixo para a borda não cortar os botões */
+    height: auto; 
+    min-height: var(--h-nav); 
     z-index: 999;
     border-bottom: 1px solid var(--glass-border);
     box-sizing: border-box;
+    transition: top 0.3s;
 }
 
 .cat-btn {
-    grid-column: span 2;
+    /* Ajustamos a largura para caberem 3 por linha (32% aproximadamente) */
+    flex: 1 1 30%; 
+    max-width: 32%;
     padding: 10px 5px;
     border-radius: 8px;
     border: 1px solid var(--glass-border);
     background: var(--glass);
     color: #fff;
-    font-size: 0.75rem;
+    font-size: 0.65rem; /* Diminuímos um pouco a fonte para não quebrar texto */
     cursor: pointer;
     font-weight: bold;
     text-align: center;
     transition: 0.2s;
-    box-shadow: 1px 1px 1px rgb(255, 255, 255);
+    white-space: nowrap; /* Evita que o texto pule linha dentro do botão */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Se o nome for grande, ele coloca '...' */
 }
 
-#nav-cats .cat-btn:nth-child(4) { grid-column: 2 / span 2; }
-#nav-cats .cat-btn:nth-child(5) { grid-column: 4 / span 2; }
+/* Removemos as regras de nth-child(4) e (5) antigas para o Flexbox alinhar sozinho */
 
 .cat-btn.active {
     background: var(--grad);
     border: none;
     box-shadow: 0 4px 10px rgba(255, 49, 49, 0.3);
+}
+
+/* Ajuste específico para celulares bem pequenos */
+@media (max-width: 360px) {
+    .cat-btn {
+        font-size: 0.6rem;
+        padding: 8px 3px;
+    }
 }
 
 /* --- CONTEÚDO --- */
@@ -358,7 +373,37 @@ header {
 .stepper span {
     margin: 0 10px;
 }
+/* Estilo do Banner de Promoção - CENTRALIZADO E AJUSTADO */
+.promo-banner {
+    width: 30%; /* Ajustei para 60% para não ficar pequeno demais no celular, mas você pode voltar para 50% se preferir */
+    margin: 0 auto 25px auto; /* O 'auto' nas laterais centraliza o bloco na tela */
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(253, 165, 0, 0.3);
+    border: 2px solid var(--gold);
+    display: block; /* Garante que o margin auto funcione */
+}
 
+.img-banner {
+    width: 100%; /* A imagem deve ocupar 100% do container (que já tem 60% da tela) */
+    height: auto;
+    display: block;
+    object-fit: contain; /* Garante que a imagem apareça inteira sem cortes */
+    transition: transform 0.3s ease;
+}
+
+.promo-banner:hover .img-banner {
+    transform: scale(1.02);
+}
+
+/* Ajuste para telas menores (Celular) */
+@media (max-width: 768px) {
+    .promo-banner {
+        width: 40%; /* No celular, 50% fica muito pequeno, 90% aproveita melhor a tela */
+        margin-bottom: 15px;
+        border-radius: 10px;
+    }
+}
     </style>
 </head>
 
@@ -377,9 +422,13 @@ header {
     
    </nav>
 
-   <main class="container">
-      <div id="lista-produtos" class="grid-produtos"></div>
-   </main>
+  <main class="container">
+    <div class="promo-banner" onclick="irParaPromocao()" style="cursor: pointer;">
+        <img src="promo.jpeg" alt="Promoção Dia das Mulheres" class="img-banner">
+    </div>
+
+    <div id="lista-produtos" class="grid-produtos"></div>
+</main>
 
    <div class="floating-actions"
    
@@ -560,7 +609,7 @@ const db = getFirestore(app);
     { id: 10, cat: "🍔ARTESANAIS 75g", nome: "Cheddar Burguer", desc: "Pão brioche, 2 carnes artesanais 75g, 2 queijos, 2 presuntos, cheddar, salsicha, bacon, calabresa, tomate e alface.", preco: 28.00, img: "xche.webp" },
     { id: 11, cat: "🍔ARTESANAIS 120g", nome: "Hambúrguer Clássico", desc: "Pão de hambúrguer, carne artesanal 120g, 2 queijos, barbecue, tomate alface e molho da casa.", preco: 18.00, img: "hamb.jpg" },
     { id: 12, cat: "🍔ARTESANAIS 120g", nome: "Cheddar Bacon", desc: "Pão de hambúrguer, carne artesanal 120g, bacon, cheddar cremoso, barbecue, cebola, geleia de goiabada apimentada.", preco: 22.00, img: "ched.jpg" },
-    { id: 13, cat: "🍔ARTESANAIS 120g", nome: "Chappa Burguer Picante", desc: "Pão de hambúrguer, carne artesanal 120g, queijo, presunto, cheddar cremoso, banana da terra, geleia de goiabada apimentada, tomate e alface.", preco: 25.00, img: "pic.jpg" },
+    { id: 13, cat: "🍔ARTESANAIS 120g", nome: "Chappa Burguer Picante", desc: "Pão de hambúrguer, carne artesanal 120g, queijo, presunto, cheddar cremoso, banana da terra, geleia de goiabada apimentada, tomate e alface.", preco: 22.99, img: "pic.jpg" },
     { id: 14, cat: "🍔ARTESANAIS 120g", nome: "Big Burguer Calabresa", desc: "Pão de hambúrguer, carne artesanal 120g, queijos, presunto, calabresa, cheddar cremoso, geleia de goiabada apimentada, barbecue, tomate e alface.", preco: 27.00, img: "cala.webp" },
     { id: 15, cat: "🍔ARTESANAIS 120g", nome: "X Bacon Duplo", desc: "Pão de hambúrguer, 2 carnes artesanal 120g, queijo, bacon, cheddar cremoso, geleia de goiabada apimentada, barbecue, tomate e alface.", preco: 27.00, img: "baco.webp" },
     { id: 16, cat: "🍔ARTESANAIS 120g", nome: "Chappa Quente Especial", desc: "Pão de hambúrguer, 2 carnes artesanal 120g, 2 queijos, 2 presuntos, bacon, calabresa, banana da terra, cheddar cremoso, geleia de goiabada apimentada, barbecue, tomate e alface.", preco: 35.00, img: "xd.jpg" },
@@ -1091,6 +1140,47 @@ if (nav) {
     // Carrega a primeira categoria
     if (typeof filtrar === "function") filtrar(cats[0]);
 }
+window.irParaPromocao = () => {
+    // 1. Muda para a categoria onde o hambúrguer está (Artesanais 120g)
+    const categoriaPromo = "🍔ARTESANAIS 120g";
+    filtrar(categoriaPromo);
+
+    // 2. Aguarda um milisegundo para o navegador renderizar os produtos e faz o scroll
+    setTimeout(() => {
+        // Procura o card que contém o nome do hambúrguer picante
+        const cards = document.querySelectorAll('.produto-card');
+        let alvo = null;
+
+        cards.forEach(card => {
+            if (card.innerText.includes("Chappa Burguer Picante")) {
+                alvo = card;
+            }
+        });
+
+        if (alvo) {
+            // Faz a tela rolar suavemente até o produto
+            const offset = 150; // Ajuste para não ficar colado no topo por causa do menu fixo
+            const bodyRect = document.body.getBoundingClientRect().top;
+            const elementRect = alvo.getBoundingClientRect().top;
+            const elementPosition = elementRect - bodyRect;
+            const offsetPosition = elementPosition - offset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+
+            // Efeito visual opcional: dar um leve "pulso" no card para o cliente saber qual é
+            alvo.style.transition = "0.5s";
+            alvo.style.transform = "scale(1.05)";
+            alvo.style.border = "2px solid var(--gold)";
+            
+            setTimeout(() => {
+                alvo.style.transform = "scale(1)";
+            }, 1000);
+        }
+    }, 100);
+};
 
 // Bloqueios de segurança (mantidos como no original)
 document.addEventListener('keydown', function (e) {
