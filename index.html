@@ -374,34 +374,100 @@ header {
     margin: 0 10px;
 }
 /* Estilo do Banner de Promoção - CENTRALIZADO E AJUSTADO */
+/* Container pai para alinhar os banners */
+.container-promos {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    width: 95%; /* Ajuste a largura total conforme preferir */
+    margin: 0 auto 20px auto;
+}
+
 .promo-banner {
-    width: 30%; /* Ajustei para 60% para não ficar pequeno demais no celular, mas você pode voltar para 50% se preferir */
-    margin: 0 auto 25px auto; /* O 'auto' nas laterais centraliza o bloco na tela */
-    border-radius: 15px;
+    flex: 1; /* Faz os dois terem exatamente o mesmo tamanho */
+    max-width: 300px; /* Limita o tamanho no PC para não ficarem gigantes */
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(253, 165, 0, 0.3);
-    border: 2px solid var(--gold);
-    display: block; /* Garante que o margin auto funcione */
+    box-shadow: 0 4px 10px rgba(253, 165, 0, 0.2);
+    border: 7px solid var(--gold);
+    cursor: pointer;
+    background: #000;
 }
 
 .img-banner {
-    width: 100%; /* A imagem deve ocupar 100% do container (que já tem 60% da tela) */
+    width: 100%;
     height: auto;
     display: block;
-    object-fit: contain; /* Garante que a imagem apareça inteira sem cortes */
-    transition: transform 0.3s ease;
+    object-fit: contain;
+    transition: transform 0.3s;
 }
 
 .promo-banner:hover .img-banner {
-    transform: scale(1.02);
+    transform: scale(1.05);
 }
 
-/* Ajuste para telas menores (Celular) */
+/* Ajuste para Celular */
 @media (max-width: 768px) {
+    .container-promos {
+        width: 100%;
+        padding: 0 10px;
+        box-sizing: border-box;
+    }
     .promo-banner {
-        width: 40%; /* No celular, 50% fica muito pequeno, 90% aproveita melhor a tela */
-        margin-bottom: 15px;
-        border-radius: 10px;
+        max-width: 48%; /* Garante que caibam 2 na mesma linha no celular */
+        border-radius: 8px;
+    }
+}
+/* --- ESTILO DO TÍTULO DA PROMOÇÃO --- */
+.promo-header {
+    text-align: center;
+    margin-bottom: 15px;
+    padding: 0 10px;
+}
+
+.promo-header h2 {
+    color: var(--gold);
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin: 5px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    /* Efeito de brilho suave */
+    animation: brilho 2s infinite alternate;
+}
+
+.promo-header p {
+    color: #aaa;
+    font-size: 0.85rem;
+    margin: 0;
+    font-style: italic;
+}
+
+.badge-hoje {
+    background: #ff3131; /* Vermelho vibrante */
+    color: #fff;
+    font-size: 0.7rem;
+    padding: 3px 10px;
+    border-radius: 50px;
+    font-weight: 900;
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+/* Animação para o título brilhar levemente */
+@keyframes brilho {
+    from { filter: drop-shadow(0 0 2px var(--gold)); }
+    to { filter: drop-shadow(0 0 8px #ffcc00); }
+}
+
+/* Ajuste para celular */
+@media (max-width: 768px) {
+    .promo-header h2 {
+        font-size: 1.1rem; /* Diminui um pouco para não quebrar linha no celular */
+    }
+    .promo-header p {
+        font-size: 0.75rem;
     }
 }
     </style>
@@ -423,8 +489,20 @@ header {
    </nav>
 
   <main class="container">
-    <div class="promo-banner" onclick="irParaPromocao()" style="cursor: pointer;">
-        <img src="promo.jpeg" alt="Promoção Dia das Mulheres" class="img-banner">
+    <div class="promo-header">
+        <span class="badge-hoje">EXCLUSIVO</span>
+        <h2>🔥 PROMOÇÃO SOMENTE HOJE! 🔥</h2>
+        <p>Clique no banner para selecionar o seu</p>
+    </div>
+
+    <div class="container-promos">
+        <div class="promo-banner" onclick="irParaProduto('Chappa Burguer Picante')">
+            <img src="promo.jpeg" alt="Chappa Burguer Picante" class="img-banner">
+        </div>
+
+        <div class="promo-banner" onclick="irParaProduto('Big Burguer Calabresa')">
+            <img src="promo2.jpeg" alt="Big Burguer Calabresa" class="img-banner">
+        </div>
     </div>
 
     <div id="lista-produtos" class="grid-produtos"></div>
@@ -610,7 +688,7 @@ const db = getFirestore(app);
     { id: 11, cat: "🍔ARTESANAIS 120g", nome: "Hambúrguer Clássico", desc: "Pão de hambúrguer, carne artesanal 120g, 2 queijos, barbecue, tomate alface e molho da casa.", preco: 18.00, img: "hamb.jpg" },
     { id: 12, cat: "🍔ARTESANAIS 120g", nome: "Cheddar Bacon", desc: "Pão de hambúrguer, carne artesanal 120g, bacon, cheddar cremoso, barbecue, cebola, geleia de goiabada apimentada.", preco: 22.00, img: "ched.jpg" },
     { id: 13, cat: "🍔ARTESANAIS 120g", nome: "Chappa Burguer Picante", desc: "Pão de hambúrguer, carne artesanal 120g, queijo, presunto, cheddar cremoso, banana da terra, geleia de goiabada apimentada, tomate e alface.", preco: 22.99, img: "pic.jpg" },
-    { id: 14, cat: "🍔ARTESANAIS 120g", nome: "Big Burguer Calabresa", desc: "Pão de hambúrguer, carne artesanal 120g, queijos, presunto, calabresa, cheddar cremoso, geleia de goiabada apimentada, barbecue, tomate e alface.", preco: 27.00, img: "cala.webp" },
+    { id: 14, cat: "🍔ARTESANAIS 120g", nome: "Big Burguer Calabresa", desc: "Pão de hambúrguer, carne artesanal 120g, queijos, presunto, calabresa, cheddar cremoso, geleia de goiabada apimentada, barbecue, tomate e alface.", preco: 22.99, img: "cala.webp" },
     { id: 15, cat: "🍔ARTESANAIS 120g", nome: "X Bacon Duplo", desc: "Pão de hambúrguer, 2 carnes artesanal 120g, queijo, bacon, cheddar cremoso, geleia de goiabada apimentada, barbecue, tomate e alface.", preco: 27.00, img: "baco.webp" },
     { id: 16, cat: "🍔ARTESANAIS 120g", nome: "Chappa Quente Especial", desc: "Pão de hambúrguer, 2 carnes artesanal 120g, 2 queijos, 2 presuntos, bacon, calabresa, banana da terra, cheddar cremoso, geleia de goiabada apimentada, barbecue, tomate e alface.", preco: 35.00, img: "xd.jpg" },
     { id: 17, cat: "🥩TIRA-GOSTO", nome: "Calabresa Frita Acebolada", desc: "Calabresa passada na chapa ao ponto, acebolada.", preco: 35.00, img: "cala3.jpg" },
@@ -1140,26 +1218,24 @@ if (nav) {
     // Carrega a primeira categoria
     if (typeof filtrar === "function") filtrar(cats[0]);
 }
-window.irParaPromocao = () => {
-    // 1. Muda para a categoria onde o hambúrguer está (Artesanais 120g)
+window.irParaProduto = (nomeProduto) => {
+    // 1. Ambas estão na categoria Artesanais 120g
     const categoriaPromo = "🍔ARTESANAIS 120g";
     filtrar(categoriaPromo);
 
-    // 2. Aguarda um milisegundo para o navegador renderizar os produtos e faz o scroll
     setTimeout(() => {
-        // Procura o card que contém o nome do hambúrguer picante
         const cards = document.querySelectorAll('.produto-card');
         let alvo = null;
 
         cards.forEach(card => {
-            if (card.innerText.includes("Chappa Burguer Picante")) {
+            // Verifica se o nome do produto está no texto do card
+            if (card.innerText.toLowerCase().includes(nomeProduto.toLowerCase())) {
                 alvo = card;
             }
         });
 
         if (alvo) {
-            // Faz a tela rolar suavemente até o produto
-            const offset = 150; // Ajuste para não ficar colado no topo por causa do menu fixo
+            const offset = 180; // Ajustado para as 2 linhas do menu
             const bodyRect = document.body.getBoundingClientRect().top;
             const elementRect = alvo.getBoundingClientRect().top;
             const elementPosition = elementRect - bodyRect;
@@ -1170,16 +1246,18 @@ window.irParaPromocao = () => {
                 behavior: 'smooth'
             });
 
-            // Efeito visual opcional: dar um leve "pulso" no card para o cliente saber qual é
-            alvo.style.transition = "0.5s";
+            // Destaque visual
+            alvo.style.transition = "0.6s";
             alvo.style.transform = "scale(1.05)";
             alvo.style.border = "2px solid var(--gold)";
+            alvo.style.boxShadow = "0 0 20px var(--gold)";
             
             setTimeout(() => {
                 alvo.style.transform = "scale(1)";
-            }, 1000);
+                alvo.style.boxShadow = "none";
+            }, 1500);
         }
-    }, 100);
+    }, 150);
 };
 
 // Bloqueios de segurança (mantidos como no original)
