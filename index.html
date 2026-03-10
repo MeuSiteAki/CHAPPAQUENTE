@@ -702,11 +702,16 @@ const db = getFirestore(app);
     { id: 22, cat: "🥤BEBIDAS", nome: "Refrigerante 1L", desc: "Escolha o sabor ao adicionar.", preco: 10.00, img: "coca2.jpeg" },
     { id: 23, cat: "🥤BEBIDAS", nome: "Refrigerante 2L", desc: "Escolha o sabor ao adicionar.", preco: 15.00, img: "coca3.jpg" },
     { id: 24, cat: "🥤BEBIDAS", nome: "H2O Limoneto 500ml", desc: "", preco: 7.00, img: "limo.jpg" },
-    { id: 25, cat: "🥤BEBIDAS", nome: "Água mineral (sem gás)", desc: "", preco: 3.00, img: "agua.jpg" },
+    { id: 32, cat: "🥤BEBIDAS", nome: "Água mineral 1,5L", desc: "", preco: 7.00, img: "agua.jpg" },
+    { id: 33, cat: "🥤BEBIDAS", nome: "Red Bull", desc: "", preco: 13.00, img: "red.png" },
     { id: 26, cat: "🥤BEBIDAS", nome: "Suco Natural 300ml", desc: "Escolha o sabor ao adicionar.", preco: 7.00, img: "suco.jpg" },
     // --- ADIÇÃO DA CATEGORIA CERVEJAS ---
     { id: 30, cat: "🍺CERVEJAS", nome: "Latas 269ml ", desc: "Escolha a marca ao adicionar.", preco: 5.00, img: "cerv.jpg" },
-    { id: 31, cat: "🍺CERVEJAS", nome: "Long Neck 330ml ", desc: "Escolha a marca ao adicionar.", preco: 10.00, img: "long.jpeg" }
+    { id: 31, cat: "🍺CERVEJAS", nome: "Long Neck 330ml ", desc: "Escolha a marca ao adicionar.", preco: 10.00, img: "long.jpeg" },
+    { id: 34, cat: "🍬DIVERSOS", nome: "Trident", desc: "", preco: 3.00, img: "tri.jpg" },
+    { id: 35, cat: "🍬DIVERSOS", nome: "Halls", desc: "", preco: 3.00, img: "hal.jpg" },
+    { id: 36, cat: "🍬DIVERSOS", nome: "Balas", desc: "", preco: 0.20, img: "ice.jpg" },
+    { id: 37, cat: "🍬DIVERSOS", nome: "Balas diversas 6 uni.", desc: "", preco: 1.00, img: "ice.jpg" },
 ];
 
         let carrinho = [];
@@ -737,6 +742,7 @@ window.prepararAdd = (id) => {
     const p = produtos.find(item => item.id === id);
     const isBebida = p.cat === "🥤BEBIDAS";
     const isCerveja = p.cat === "🍺CERVEJAS";
+    const isDiversos = p.cat === "🍬DIVERSOS"
 
     const mapaOpcoes = {
         "Refrigerante 250ml": ["River"],
@@ -751,7 +757,7 @@ window.prepararAdd = (id) => {
     const opcoesDisponiveis = mapaOpcoes[p.nome] || ["Padrão"];
     let htmlConteudo = "";
 
-    if (isBebida || isCerveja) {
+    if (isBebida || isCerveja || isDiversos) {
         htmlConteudo = `
             <div style="text-align:left; color:#fff; font-size:0.9rem;">
                 <p style="color:var(--gold); font-weight:800; margin-bottom:10px;">ESCOLHA UMA OPÇÃO:</p>
@@ -789,7 +795,7 @@ window.prepararAdd = (id) => {
     }
 
     Swal.fire({
-        title: (isBebida || isCerveja) ? p.nome : 'OPCIONAL',
+        title: (isBebida || isCerveja || isDiversos) ? p.nome : 'OPCIONAL',
         html: htmlConteudo,
         showCancelButton: true,
         confirmButtonText: '✅ Adicionar',
@@ -797,7 +803,7 @@ window.prepararAdd = (id) => {
         background: '#1a1a1a',
         preConfirm: () => {
             const obs = document.getElementById('obs').value;
-            if (isBebida || isCerveja) {
+            if (isBebida || isCerveja || isDiversos) {
                 const radio = document.querySelector('input[name="opcao_item"]:checked');
                 const escolha = radio ? radio.value : "Padrão";
                 return { obs, escolha, isEspecial: true };
@@ -1217,7 +1223,7 @@ async function finalizar() {
 
 /// --- Inicialização das Categorias Corrigida ---
 // --- Inicialização 3 em cima, 2 em baixo ---
-const cats = ["🍔ARTESANAIS 120g", "🍔ARTESANAIS 75g", "🥩TIRA-GOSTO", "🥤BEBIDAS", "🍺CERVEJAS"];
+const cats = ["🍔ARTESANAIS 120g", "🍔ARTESANAIS 75g", "🥩TIRA-GOSTO", "🥤BEBIDAS", "🍺CERVEJAS", "🍬DIVERSOS"];
 const nav = document.getElementById('nav-cats');
 
 if (nav) {
@@ -1318,6 +1324,7 @@ document.addEventListener('contextmenu', function (event) { event.preventDefault
   </div>
 
   <div class="footer-copy">
+    <img style="width: 50px; border-radius: 50px;" src="logo2.png" alt=""><br>
     Site criado por: Carlos de Freitas Rocha.<br>
     <a style="color: #fdfdfd;" href="https://wa.me/5599992247546">Clique aqui e faça seu orçamento.</a>
   </div>
