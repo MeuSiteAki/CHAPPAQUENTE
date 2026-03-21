@@ -1072,16 +1072,17 @@ window.processarPedido = () => {
 
     toggleCart(false);
 
-    // --- LÓGICA DE TAXA SINCRONIZADA ---
-    let taxa = 0;
-    if (tipoPedido === 'entrega') {
-        // Se for Itinga ou Paulistão é 4.00, caso contrário 3.00 (igual ao finalizar)
-        if (bairroSel === "Itinga-PA" || bairroSel === "Paulistão") {
-            taxa = 4.00;
-        } else {
-            taxa = 3.00; // Aqui estava 2.00, por isso o erro de 1 real
-        }
+    // --- LÓGICA DE TAXA CORRIGIDA NO PROCESSAR ---
+let taxa = 0;
+if (tipoPedido === 'entrega') {
+    if (bairroSel === "Paulistão") {
+        taxa = 8.00; // Agora o Paulistão tem o valor correto
+    } else if (bairroSel === "Itinga-PA") {
+        taxa = 4.00;
+    } else {
+        taxa = 3.00;
     }
+}
 
     const subtotalComAdicionais = carrinho.reduce((acc, i) => acc + (i.precoFinal * i.qtd), 0);
     const totalParaPix = subtotalComAdicionais + taxa;
