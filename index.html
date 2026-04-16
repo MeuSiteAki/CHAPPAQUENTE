@@ -1086,10 +1086,9 @@ window.processarPedido = () => {
     const subtotalComAdicionais = carrinho.reduce((acc, i) => acc + (i.precoFinal * i.qtd), 0);
     const totalParaPix = subtotalComAdicionais + taxa;
 
-    if (pag === 'PIX') {
-        // --- DADOS ATUALIZADOS AQUI ---
-        const chaveCelular = '+5599991586481'; // Formato internacional para chave celular
-        const nomeRecebedor = 'FERNANDO MULLER X S'; // Abreviei levemente para manter o padrão de 25 caracteres do BR Code
+   if (pag === 'PIX') {
+        const chaveCelular = '58646956000145'; // CNPJ como chave PIX
+        const nomeRecebedor = 'FERNANDO M X SOUSA'; // Máx ~25 chars no BR Code
         const cidade = 'ITINGA-MA'; 
 
         const brCode = buildPixBRCode(chaveCelular, nomeRecebedor, cidade, totalParaPix);
@@ -1132,7 +1131,6 @@ async function finalizar() {
     const trocoPara = document.getElementById('troco').value;
     const tipoPedido = document.querySelector('input[name="tipo_pedido"]:checked')?.value || 'entrega';
     
-    // VALIDAÇÃO CORRIGIDA: Se for retirada, pula bairro e endereço
     if (!nome || pag === "-:-") {
         return Swal.fire('Atenção', 'Preencha seu nome e pagamento!', 'warning');
     }
