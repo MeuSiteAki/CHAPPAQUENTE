@@ -675,6 +675,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
         const produtos = [
+    { id: 44, cat: "🍔ARTESANAIS 75g", nome: "Misto-Quente", desc: "Pão, queijo, presunto, tomate e alface.", preco: 6.00, img: "mis.jpg" },     
     { id: 1, cat: "🍔ARTESANAIS 75g", nome: "Chappa Kids", desc: "Pão brioche, carne artesanal  75g, queijo, presunto, tomate e alface.", preco: 13.00, img: "simples.jpg" },
     { id: 2, cat: "🍔ARTESANAIS 75g", nome: "Chappa Quente", desc: "Pão brioche, carne artesanal 75g, queijo, presunto, cheddar, tomate e alface.", preco: 14.00, img: "ham2.webp" },
     { id: 3, cat: "🍔ARTESANAIS 75g", nome: "X-Burguer", desc: "Pão brioche, carne artesanal 75g, queijo, presunto, salsicha, tomate e alface.", preco: 15.00, img: "xbur.jpg" },
@@ -697,14 +698,16 @@ const db = getFirestore(app);
     { id: 27, cat: "🥩TIRA-GOSTO", nome: "Calabresa Frita Acebolada (porções pequenas)", desc: "Calabresa passada na chapa ao ponto, acebolada.", preco: 15.00, img: "cala3.jpg" },
     { id: 28, cat: "🥩TIRA-GOSTO", nome: "Carne Acebolada na Chappa (porções pequenas)", desc: "Carne ao ponto, acebolada na chappa.", preco: 15.00, img: "carn.jpg" },
     { id: 29, cat: "🥩TIRA-GOSTO", nome: "Combo do Chef (porções pequenas)", desc: "Calabresa especial e carne suculenta passadas na chapa ao ponto, acebolada, molho da casa e barbecue.", preco: 15.00, img: "carncala.jpg" },
-    { id: 20, cat: "🥤BEBIDAS", nome: "Refrigerante 250ml", desc: "Escolha o sabor ao adicionar.", preco: 4.00, img: "rive.webp" },
+    { id: 20, cat: "🥤BEBIDAS", nome: "Refrigerante 200ml", desc: "Escolha o sabor ao adicionar.", preco: 4.00, img: "rive.webp" },
     { id: 21, cat: "🥤BEBIDAS", nome: "Refrigerante 350ml", desc: "Escolha o sabor ao adicionar.", preco: 6.00, img: "coca.jpeg" },
     { id: 22, cat: "🥤BEBIDAS", nome: "Refrigerante 1L", desc: "Escolha o sabor ao adicionar.", preco: 10.00, img: "coca2.jpeg" },
     { id: 23, cat: "🥤BEBIDAS", nome: "Refrigerante 2L", desc: "Escolha o sabor ao adicionar.", preco: 15.00, img: "coca3.jpg" },
     { id: 24, cat: "🥤BEBIDAS", nome: "H2O Limoneto 500ml", desc: "", preco: 7.00, img: "limo.jpg" },
     { id: 32, cat: "🥤BEBIDAS", nome: "Água mineral 1,5L", desc: "", preco: 7.00, img: "agua.jpg" },
-    { id: 33, cat: "🥤BEBIDAS", nome: "Red Bull", desc: "", preco: 13.00, img: "red.png" },
+    { id: 33, cat: "🥤BEBIDAS", nome: "Red Bull", desc: "", preco: 15.00, img: "red.png" },
     { id: 38, cat: "🥤BEBIDAS", nome: "Monster 269ml", desc: "", preco: 15.00, img: "monst.webp" },
+    { id: 39, cat: "🥤BEBIDAS", nome: "Ice Limão 269ml", desc: "", preco: 7.00, img: "51.webp" },
+    { id: 43, cat: "🥤BEBIDAS", nome: "Schweppes", desc: "", preco: 6.00, img: "sch.jpeg" },
     { id: 26, cat: "🥤BEBIDAS", nome: "Suco Natural 300ml", desc: "Escolha o sabor ao adicionar.", preco: 7.00, img: "suco.jpg" },
     // --- ADIÇÃO DA CATEGORIA CERVEJAS ---
     { id: 30, cat: "🍺CERVEJAS", nome: "Latas 269ml ", desc: "Escolha a marca ao adicionar.", preco: 5.00, img: "cerv.jpg" },
@@ -713,6 +716,9 @@ const db = getFirestore(app);
     { id: 35, cat: "🍬DIVERSOS", nome: "Halls", desc: "", preco: 3.00, img: "hal.jpg" },
     { id: 36, cat: "🍬DIVERSOS", nome: "Balas", desc: "", preco: 0.20, img: "ice.jpg" },
     { id: 37, cat: "🍬DIVERSOS", nome: "Balas diversas 6 uni.", desc: "", preco: 1.00, img: "ice.jpg" },
+    { id: 40, cat: "🍬DIVERSOS", nome: "Oreo 35g", desc: "", preco: 3.00, img: "oreo.webp" },
+    { id: 41, cat: "🍬DIVERSOS", nome: "Salgados Médio", desc: "", preco: 4.00, img: "sal.png" },
+    { id: 42, cat: "🍬DIVERSOS", nome: "Salgados Grande", desc: "", preco: 5.00, img: "sal.png" },
 ];
 
         let carrinho = [];
@@ -746,8 +752,8 @@ window.prepararAdd = (id) => {
     const isDiversos = p.cat === "🍬DIVERSOS"
 
     const mapaOpcoes = {
-        "Refrigerante 250ml": ["River"],
-        "Refrigerante 350ml": ["Coca-Cola", "Fanta", "Coca 0", " Guaraná","Pespi Black","G. Jesus","Sprite","Fanta Uva"],
+        "Refrigerante 200ml": ["River","Guaraná Antártica"],
+        "Refrigerante 350ml": ["Coca-Cola", "Fanta", "Coca 0", " Guaraná","Pespi Black","G. Jesus","Sprite","Fanta Uva","Cajuina S.G."],
         "Refrigerante 1L": ["Coca-Cola", "Guaraná"],
         "Refrigerante 2L": ["Coca-Cola", "Guaraná"],
         "Suco Natural 300ml": ["Maracujá", "Caja", "Acerola","Cupuaçu","Goiaba"],
