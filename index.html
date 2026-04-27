@@ -489,21 +489,21 @@ header {
    </nav>
 
   <main class="container">
-    <!-- <div class="promo-header">
+    <div class="promo-header">
         <span class="badge-hoje">EXCLUSIVO</span>
-        <h2>🔥 PROMOÇÃO SOMENTE HOJE! 🔥</h2>
+        <h2>🔥 PROMOÇÃO! 🔥</h2>
         <p>Clique no banner para selecionar o seu</p>
     </div>
 
     <div class="container-promos">
-        <div class="promo-banner" onclick="irParaProduto('Chappa Burguer Picante')">
-            <img src="promo.jpeg" alt="Chappa Burguer Picante" class="img-banner">
+        <div class="promo-banner" onclick="irParaProduto('COMBO')">
+            <img src="promo3.jpeg" alt="COMBO" class="img-banner">
         </div>
 
-        <div class="promo-banner" onclick="irParaProduto('Big Burguer Calabresa')">
+        <!-- <div class="promo-banner" onclick="irParaProduto('Big Burguer Calabresa')">
             <img src="promo2.jpeg" alt="Big Burguer Calabresa" class="img-banner">
-        </div>
-    </div> -->
+        </div> -->
+    </div>
 
     <div id="lista-produtos" class="grid-produtos"></div>
 </main>
@@ -675,6 +675,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
         const produtos = [
+    { id: 47, cat: "🍔ARTESANAIS 120g", nome: "COMBO", desc: "2 X-Burguer + 2 Refris 200ml", preco: 32.99, img: "promo3.jpeg" },       
     { id: 44, cat: "🍔ARTESANAIS 75g", nome: "Misto-Quente", desc: "Pão, queijo, presunto, tomate e alface.", preco: 6.00, img: "mis.jpg" },     
     { id: 1, cat: "🍔ARTESANAIS 75g", nome: "Chappa Kids", desc: "Pão brioche, carne artesanal  75g, queijo, presunto, tomate e alface.", preco: 13.00, img: "simples.jpg" },
     { id: 2, cat: "🍔ARTESANAIS 75g", nome: "Chappa Quente", desc: "Pão brioche, carne artesanal 75g, queijo, presunto, cheddar, tomate e alface.", preco: 14.00, img: "ham2.webp" },
@@ -759,7 +760,7 @@ window.prepararAdd = (id) => {
         "Refrigerante 1L": ["Coca-Cola", "Guaraná"],
         "Refrigerante 2L": ["Coca-Cola", "Guaraná"],
         "Suco Natural 300ml": ["Maracujá", "Caja", "Acerola","Cupuaçu","Goiaba"],
-        "Latas 269ml ": ["Skol", "Brahma", "Amstel", "Original"],
+        "Latas 269ml ": ["Skol", "Brahma", "Amstel"],
         "Long Neck 330ml ": ["Heineken", "Corona", "Stella", "Budweiser"]
     };
 
