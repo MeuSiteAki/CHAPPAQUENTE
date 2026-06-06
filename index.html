@@ -735,7 +735,65 @@ const db = getFirestore(app);
     { id: 57, cat: "🍬DIVERSOS", nome: "Bala de Café", desc: "", preco: 0.25, img: "balac.jpeg" },
     { id: 58, cat: "🍬DIVERSOS", nome: "Bala de Café 6 uni.", desc: "", preco: 1.00, img: "balac.jpeg" },
 ];
+// --- ESCUTA STATUS DA LOJA EM TEMPO REAL ---
+onSnapshot(doc(db, "config", "loja"), (snap) => {
+    const aberta = snap.data()?.aberta ?? true;
+    const btnFinalizar = document.querySelector('button[onclick="processarPedido()"]');
+    const statusEl = document.getElementById('status-loja');
+    let overlay = document.getElementById('overlay-loja-fechada');
 
+    if (!aberta) {
+        // Cria o overlay se ainda não existe
+        if (!overlay) {
+            overlay = document.createElement('div');
+            overlay.id = 'overlay-loja-fechada';
+            overlay.style.cssText = `
+                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                background: rgba(0,0,0,0.92); z-index: 99999;
+                display: flex; flex-direction: column;
+                align-items: center; justify-content: center;
+                text-align: center; padding: 20px; box-sizing: border-box;
+            `;
+            overlay.innerHTML = `
+                <div style="font-size: 4rem; margin-bottom: 20px;">🔒</div>
+                <div style="color: #ffbd59; font-size: 2rem; font-weight: 900;
+                    text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px;">
+                    LOJA FECHADA
+                </div>
+                <div style="color: #aaa; font-size: 1rem; max-width: 300px; line-height: 1.6;">
+                    No momento não estamos aceitando pedidos.<br>
+                    Voltamos em breve! 🍔
+                </div>
+                <div style="margin-top: 25px; color: #666; font-size: 0.85rem;">
+                    Horário de funcionamento:<br>
+                    <span style="color: #ffbd59; font-weight: bold;">Todos os dias: 18:30 – 23:59</span>
+                </div>
+            `;
+            document.body.appendChild(overlay);
+        }
+
+        if (btnFinalizar) {
+            btnFinalizar.disabled = true;
+            btnFinalizar.innerText = "LOJA FECHADA NO MOMENTO";
+            btnFinalizar.classList.add('btn-desativado');
+        }
+        if (statusEl) {
+            statusEl.innerText = "○ Fechado";
+            statusEl.className = "status-badge status-fechado";
+        }
+
+    } else {
+        // Remove o overlay se existir
+        if (overlay) overlay.remove();
+
+        if (btnFinalizar) {
+            btnFinalizar.disabled = false;
+            btnFinalizar.innerText = "FINALIZAR PEDIDO";
+            btnFinalizar.classList.remove('btn-desativado');
+        }
+        verificarStatusLoja();
+    }
+});
         let carrinho = [];
 
         window.filtrar = (cat) => {
@@ -1369,3 +1427,5 @@ document.addEventListener('contextmenu', function (event) { event.preventDefault
 </body>
 
 </html>
+
+const db = getFirestore(app);
