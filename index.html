@@ -497,7 +497,7 @@ header {
 
     <div class="container-promos">
         <div class="promo-banner" onclick="irParaProduto('COMBO')">
-            <img src="promo3.jpeg" alt="COMBO" class="img-banner">
+            <img src="combo.png" alt="COMBO" class="img-banner">
         </div>
 
         <!-- <div class="promo-banner" onclick="irParaProduto('Big Burguer Calabresa')">
@@ -675,7 +675,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
         const produtos = [
-    { id: 47, cat: "🍔ARTESANAIS 120g", nome: "COMBO", desc: "2 X-Burguer + 2 Refris 200ml", preco: 32.99, img: "promo3.jpeg" },       
+    { id: 47, cat: "🍔ARTESANAIS 120g", nome: "COMBO Clássico", desc: "1 Hambúrguer Clássico + 1 Batata + 1 Refri 200ml", preco: 29.99, img: "combo.png" },       
     { id: 44, cat: "🍔ARTESANAIS 75g", nome: "Misto-Quente", desc: "Pão, queijo, presunto, tomate e alface.", preco: 6.00, img: "mis.jpg" },     
     { id: 1, cat: "🍔ARTESANAIS 75g", nome: "Chappa Kids", desc: "Pão brioche, carne artesanal  75g, queijo, presunto, tomate e alface.", preco: 13.00, img: "simples.jpg" },
     { id: 2, cat: "🍔ARTESANAIS 75g", nome: "Chappa Quente", desc: "Pão brioche, carne artesanal 75g, queijo, presunto, cheddar, tomate e alface.", preco: 14.00, img: "ham2.webp" },
@@ -716,25 +716,17 @@ const db = getFirestore(app);
     { id: 43, cat: "🥤BEBIDAS", nome: "Schweppes", desc: "", preco: 6.00, img: "sch.jpeg" },
     { id: 51, cat: "🥤BEBIDAS", nome: "Gatorade", desc: "", preco: 7.00, img: "gat.jpeg" },
     { id: 26, cat: "🥤BEBIDAS", nome: "Suco Natural 300ml", desc: "Escolha o sabor ao adicionar.", preco: 7.00, img: "suco.jpg" },
-    // --- ADIÇÃO DA CATEGORIA CERVEJAS ---
-    { id: 30, cat: "🍺CERVEJAS", nome: "Latas 269ml ", desc: "Escolha a marca ao adicionar.", preco: 6.00, img: "cerv.jpg" },
-    { id: 46, cat: "🍺CERVEJAS", nome: "Original 269ml ", desc: "", preco: 6.00, img: "cerv.jpg" },
-    { id: 31, cat: "🍺CERVEJAS", nome: "Long Neck 330ml ", desc: "Escolha a marca ao adicionar.", preco: 10.00, img: "long.jpeg" },
-    { id: 34, cat: "🍬DIVERSOS", nome: "Trident", desc: "", preco: 4.00, img: "tri.jpg" },
-    { id: 35, cat: "🍬DIVERSOS", nome: "Halls", desc: "", preco: 3.50, img: "hal.jpg" },
-    { id: 36, cat: "🍬DIVERSOS", nome: "Balas", desc: "", preco: 0.20, img: "ice.jpg" },
-    { id: 37, cat: "🍬DIVERSOS", nome: "Balas diversas 6 uni.", desc: "", preco: 1.00, img: "ice.jpg" },
-    { id: 40, cat: "🍬DIVERSOS", nome: "Oreo 35g", desc: "", preco: 3.00, img: "oreo.webp" },
-    { id: 41, cat: "🍬DIVERSOS", nome: "Salgados Médio", desc: "", preco: 4.00, img: "sal.png" },
-    { id: 42, cat: "🍬DIVERSOS", nome: "Salgados Grande", desc: "", preco: 5.00, img: "sal.png" },
-    { id: 48, cat: "🍬DIVERSOS", nome: "Escureto", desc: "", preco: 5.00, img: "esc.jpeg" },
-    { id: 52, cat: "🍬DIVERSOS", nome: "Wafer", desc: "", preco: 6.00, img: "bola.jpeg" },
-    { id: 53, cat: "🍬DIVERSOS", nome: "Bolacha P.", desc: "", preco: 4.00, img: "bola1.jpeg" },
-    { id: 54, cat: "🍬DIVERSOS", nome: "Chiclets", desc: "", preco: 0.25, img: "chi.jpeg" },
-    { id: 55, cat: "🍬DIVERSOS", nome: "Chiclets 5 uni.", desc: "5 uni.", preco: 1.00, img: "chi.jpeg" },
-    { id: 56, cat: "🍬DIVERSOS", nome: "Pirulito", desc: "", preco: 3.00, img: "pir.jpeg" },
-    { id: 57, cat: "🍬DIVERSOS", nome: "Bala de Café", desc: "", preco: 0.25, img: "balac.jpeg" },
-    { id: 58, cat: "🍬DIVERSOS", nome: "Bala de Café 6 uni.", desc: "", preco: 1.00, img: "balac.jpeg" },
+    // --- ADIÇÃO DA CATEGORIA FRITAS ---
+    { id: 62, cat: "🍟FRITAS", nome: "Batata frita P", desc: "Batatinha Frita tam P.", preco: 13.00, img: "bata.jpg" },
+    { id: 63, cat: "🍟FRITAS", nome: "Batata frita G", desc: "Batatinha Frita tam G.", preco: 15.00, img: "bata.jpg" },
+    { id: 64, cat: "🍟FRITAS", nome: "Pastel de Carne", desc: "Pastel frito na hora", preco: 15.00, img: "pas.png" },
+    { id: 65, cat: "🍟FRITAS", nome: "Pastel de Queijo com Carne", desc: "Pastel frito na hora", preco: 15.00, img: "pas1.jpg" },
+    { id: 66, cat: "🍟FRITAS", nome: "Pastel de Carne", desc: "Pastel frito na hora", preco: 15.00, img: "pas.png" },
+    { id: 67, cat: "🍟FRITAS", nome: "Mini Pasteis", desc: "10 Unidades de mini pasteis", preco: 29.99, img: "mini.jpg" },
+    { id: 68, cat: "🍟FRITAS", nome: "Pastel de Carne", desc: "Pastel frito na hora", preco: 15.00, img: "pas.png" },
+    { id: 69, cat: "🍟FRITAS", nome: "Nuggets", desc: "Porção de Nuggets 300g", preco: 19.99, img: "nug.jpg" },
+
+    // { id: 37, cat: "🍬DIVERSOS", nome: "Balas diversas 6 uni.", desc: "", preco: 1.00, img: "ice.jpg" },
 ];
 // --- ESCUTA STATUS DA LOJA EM TEMPO REAL ---
 onSnapshot(doc(db, "config", "loja"), (snap) => {
@@ -822,7 +814,7 @@ onSnapshot(doc(db, "config", "loja"), (snap) => {
 window.prepararAdd = (id) => {
     const p = produtos.find(item => item.id === id);
     const isBebida = p.cat === "🥤BEBIDAS";
-    const isCerveja = p.cat === "🍺CERVEJAS";
+    const isCerveja = p.cat === "🍟FRITAS";
     const isDiversos = p.cat === "🍬DIVERSOS"
 
     const mapaOpcoes = {
@@ -1294,7 +1286,7 @@ async function finalizar() {
 
 /// --- Inicialização das Categorias Corrigida ---
 // --- Inicialização 3 em cima, 2 em baixo ---
-const cats = ["🍔ARTESANAIS 120g", "🍔ARTESANAIS 75g", "🥩TIRA-GOSTO", "🥤BEBIDAS", "🍺CERVEJAS", "🍬DIVERSOS"];
+const cats = ["🍔ARTESANAIS 120g", "🍔ARTESANAIS 75g", "🥩TIRA-GOSTO", "🥤BEBIDAS", "🍟FRITAS"];
 const nav = document.getElementById('nav-cats');
 
 if (nav) {
