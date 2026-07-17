@@ -489,7 +489,7 @@ header {
    </nav>
 
   <main class="container">
-    <div class="promo-header">
+    <!-- <div class="promo-header">
         <span class="badge-hoje">EXCLUSIVO</span>
         <h2>🔥 PROMOÇÃO! 🔥</h2>
         <p>Clique no banner para selecionar o seu</p>
@@ -500,10 +500,10 @@ header {
             <img src="combo.png" alt="COMBO" class="img-banner">
         </div>
 
-        <!-- <div class="promo-banner" onclick="irParaProduto('Big Burguer Calabresa')">
+        <div class="promo-banner" onclick="irParaProduto('Big Burguer Calabresa')">
             <img src="promo2.jpeg" alt="Big Burguer Calabresa" class="img-banner">
-        </div> -->
-    </div>
+        </div>
+    </div> -->
 
     <div id="lista-produtos" class="grid-produtos"></div>
 </main>
@@ -675,7 +675,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
         const produtos = [
-    { id: 47, cat: "🍔ARTESANAIS 120g", nome: "COMBO Clássico", desc: "1 Hambúrguer Clássico + 1 Batata + 1 Refri 200ml", preco: 29.99, img: "combo.png" },       
+    // { id: 47, cat: "🍔ARTESANAIS 120g", nome: "COMBO Clássico", desc: "1 Hambúrguer Clássico + 1 Batata + 1 Refri 200ml", preco: 29.99, img: "combo.png" },       
     { id: 44, cat: "🍔ARTESANAIS 75g", nome: "Misto-Quente", desc: "Pão, queijo, presunto, tomate e alface.", preco: 6.00, img: "mis.jpg" },     
     { id: 1, cat: "🍔ARTESANAIS 75g", nome: "Chappa Kids", desc: "Pão brioche, carne artesanal  75g, queijo, presunto, tomate e alface.", preco: 13.00, img: "simples.jpg" },
     { id: 2, cat: "🍔ARTESANAIS 75g", nome: "Chappa Quente", desc: "Pão brioche, carne artesanal 75g, queijo, presunto, cheddar, tomate e alface.", preco: 14.00, img: "ham2.webp" },
@@ -687,12 +687,17 @@ const db = getFirestore(app);
     { id: 8, cat: "🍔ARTESANAIS 75g", nome: "X-Queijo Especial", desc: "Pão brioche, 2 carnes artesanais 75g, 2 queijos, calabresa, salsicha, cheddar, tomate e alface.", preco: 20.00, img: "4quei.jpeg" },
     { id: 9, cat: "🍔ARTESANAIS 75g", nome: "Mega Chappa", desc: "Pão brioche, 2 carnes artesanais 75g, queijo, presunto, ovo, cheddar, salsicha, calabresa, tomate e alface.", preco: 26.00, img: "chap.jpg" },
     { id: 10, cat: "🍔ARTESANAIS 75g", nome: "Cheddar Burguer", desc: "Pão brioche, 2 carnes artesanais 75g, 2 queijos, 2 presuntos, cheddar, salsicha, bacon, calabresa, tomate e alface.", preco: 28.00, img: "xche.webp" },
+    { id: 72, cat: "🍔ARTESANAIS 120g", nome: "Cheff Burguer", desc: "Pão de hambúrguer, carne de 120g, cream cheese, queijo, geleia de goiabada, carne desfiada, tomate e alface.", preco: 24.99, img: "chef.jpeg" },
+    { id: 73, cat: "🍔ARTESANAIS 120g", nome: "Arretado", desc: "Pão brioche, carne artesanal 120g, cream cheese, chimichure, cheddar, calabresa e molho da casa.", preco: 23.99, img: "arr.jpeg" },
+    { id: 74, cat: "🍔ARTESANAIS 120g", nome: "Duplo Nordestino", desc: "Pão brioche, 2 carnes artesanais 120g, queijo, chimichure, bacon, banana da terra, cheddar, molho especial, geleia de goiabada apimentada, tomate e alface.", preco: 28.99, img: "dup.jpeg" },
     { id: 11, cat: "🍔ARTESANAIS 120g", nome: "Hambúrguer Clássico", desc: "Pão de hambúrguer, carne artesanal 120g, 2 queijos, barbecue, tomate alface e molho da casa.", preco: 18.00, img: "hamb.jpg" },
     { id: 12, cat: "🍔ARTESANAIS 120g", nome: "Cheddar Bacon", desc: "Pão de hambúrguer, carne artesanal 120g, bacon, cheddar cremoso, barbecue, cebola, geleia de goiabada apimentada.", preco: 22.00, img: "ched.jpg" },
     { id: 13, cat: "🍔ARTESANAIS 120g", nome: "Chappa Burguer Picante", desc: "Pão de hambúrguer, carne artesanal 120g, queijo, presunto, cheddar cremoso, banana da terra, geleia de goiabada apimentada, tomate e alface.", preco: 25.00, img: "pic.jpg" },
     { id: 14, cat: "🍔ARTESANAIS 120g", nome: "Big Burguer Calabresa", desc: "Pão de hambúrguer, carne artesanal 120g, queijos, presunto, calabresa, cheddar cremoso, geleia de goiabada apimentada, barbecue, tomate e alface.", preco: 27.00, img: "cala.webp" },
     { id: 15, cat: "🍔ARTESANAIS 120g", nome: "X Bacon Duplo", desc: "Pão de hambúrguer, 2 carnes artesanal 120g, queijo, bacon, cheddar cremoso, geleia de goiabada apimentada, barbecue, tomate e alface.", preco: 27.00, img: "baco.webp" },
     { id: 16, cat: "🍔ARTESANAIS 120g", nome: "Chappa Quente Especial", desc: "Pão de hambúrguer, 2 carnes artesanal 120g, 2 queijos, 2 presuntos, bacon, calabresa, banana da terra, cheddar cremoso, geleia de goiabada apimentada, barbecue, tomate e alface.", preco: 35.00, img: "xd.jpg" },
+    { id: 70, cat: "🍔COMBOS", nome: "Combo Classico", desc: "1 Hamburguer Classico + Porção de Batata + Refri 200ml", preco: 29.99, img: "combo.png" },
+    { id: 71, cat: "🍔COMBOS", nome: "Combo X-Burguers", desc: "2 X-Burguers + 2 Refri 200ml", preco: 32.99, img: "promo3.jpeg" },
     { id: 17, cat: "🥩TIRA-GOSTO", nome: "Calabresa Frita Acebolada", desc: "Calabresa passada na chapa ao ponto, acebolada.", preco: 35.00, img: "cala3.jpg" },
     { id: 18, cat: "🥩TIRA-GOSTO", nome: "Carne Acebolada na Chappa", desc: "Carne ao ponto, acebolada na chappa.", preco: 50.00, img: "carn.jpg" },
     { id: 19, cat: "🥩TIRA-GOSTO", nome: "Combo do Chef", desc: "Calabresa especial e carne suculenta passadas na chapa ao ponto, acebolada, molho da casa e barbecue.", preco: 65.00, img: "carncala.jpg" },
@@ -1282,7 +1287,7 @@ async function finalizar() {
 
 /// --- Inicialização das Categorias Corrigida ---
 // --- Inicialização 3 em cima, 2 em baixo ---
-const cats = ["🍔ARTESANAIS 120g", "🍔ARTESANAIS 75g", "🥩TIRA-GOSTO", "🥤BEBIDAS", "🍟FRITAS"];
+const cats = ["🍔ARTESANAIS 120g", "🍔ARTESANAIS 75g", "🍔COMBOS" , "🥩TIRA-GOSTO", "🥤BEBIDAS", "🍟FRITAS"];
 const nav = document.getElementById('nav-cats');
 
 if (nav) {
