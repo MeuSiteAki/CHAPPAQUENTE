@@ -676,28 +676,85 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
         const produtos = [
     // { id: 47, cat: "🍔ARTESANAIS 120g", nome: "COMBO Clássico", desc: "1 Hambúrguer Clássico + 1 Batata + 1 Refri 200ml", preco: 29.99, img: "combo.png" },       
-    { id: 44, cat: "🍔ARTESANAIS 75g", nome: "Misto-Quente", desc: "Pão, queijo, presunto, tomate e alface.", preco: 6.00, img: "mis.jpg" },     
-    { id: 1, cat: "🍔ARTESANAIS 75g", nome: "Chappa Kids", desc: "Pão brioche, carne artesanal  75g, queijo, presunto, tomate e alface.", preco: 13.00, img: "simples.jpg" },
-    { id: 2, cat: "🍔ARTESANAIS 75g", nome: "Chappa Quente", desc: "Pão brioche, carne artesanal 75g, queijo, presunto, cheddar, tomate e alface.", preco: 14.00, img: "ham2.webp" },
-    { id: 3, cat: "🍔ARTESANAIS 75g", nome: "X-Burguer", desc: "Pão brioche, carne artesanal 75g, queijo, presunto, salsicha, tomate e alface.", preco: 15.00, img: "xbur.jpg" },
-    { id: 4, cat: "🍔ARTESANAIS 75g", nome: "X-Salada Especial", desc: "Pão brioche, carne artesanal 75g, queijo, presunto, ovo, tomate e alface.", preco: 15.00, img: "salaes.jpg" },
-    { id: 5, cat: "🍔ARTESANAIS 75g", nome: "X-Calabresa", desc: "Pão brioche, carne artesanal 75g, queijo, presunto, salsicha, calabresa, tomate e alface.", preco: 16.00, img: "cala2.jpg" },
-    { id: 6, cat: "🍔ARTESANAIS 75g", nome: "X-Bacon", desc: "Pão brioche, carne artesanal 75g, queijo, presunto, salsicha, bacon, tomate e alface.", preco: 17.00, img: "xbac.jpg" },
-    { id: 7, cat: "🍔ARTESANAIS 75g", nome: "X-Tudo", desc: "Pão brioche, carne artesanal 75g, queijo, presunto, ovo, salsicha, calabresa, bacon, tomate e alface.", preco: 18.00, img: "xtudo.jpg" },
-    { id: 8, cat: "🍔ARTESANAIS 75g", nome: "X-Queijo Especial", desc: "Pão brioche, 2 carnes artesanais 75g, 2 queijos, calabresa, salsicha, cheddar, tomate e alface.", preco: 20.00, img: "4quei.jpeg" },
-    { id: 9, cat: "🍔ARTESANAIS 75g", nome: "Mega Chappa", desc: "Pão brioche, 2 carnes artesanais 75g, queijo, presunto, ovo, cheddar, salsicha, calabresa, tomate e alface.", preco: 26.00, img: "chap.jpg" },
-    { id: 10, cat: "🍔ARTESANAIS 75g", nome: "Cheddar Burguer", desc: "Pão brioche, 2 carnes artesanais 75g, 2 queijos, 2 presuntos, cheddar, salsicha, bacon, calabresa, tomate e alface.", preco: 28.00, img: "xche.webp" },
-    { id: 72, cat: "🍔ARTESANAIS 120g", nome: "Cheff Burguer", desc: "Pão de hambúrguer, carne de 120g, cream cheese, queijo, geleia de goiabada, carne desfiada, tomate e alface.", preco: 24.99, img: "chef.jpeg" },
-    { id: 73, cat: "🍔ARTESANAIS 120g", nome: "Arretado", desc: "Pão brioche, carne artesanal 120g, cream cheese, chimichure, cheddar, calabresa e molho da casa.", preco: 23.99, img: "arr.jpeg" },
-    { id: 74, cat: "🍔ARTESANAIS 120g", nome: "Duplo Nordestino", desc: "Pão brioche, 2 carnes artesanais 120g, queijo, chimichure, bacon, banana da terra, cheddar, molho especial, geleia de goiabada apimentada, tomate e alface.", preco: 28.99, img: "dup.jpeg" },
-    { id: 11, cat: "🍔ARTESANAIS 120g", nome: "Hambúrguer Clássico", desc: "Pão de hambúrguer, carne artesanal 120g, 2 queijos, barbecue, tomate alface e molho da casa.", preco: 18.00, img: "hamb.jpg" },
-    { id: 12, cat: "🍔ARTESANAIS 120g", nome: "Cheddar Bacon", desc: "Pão de hambúrguer, carne artesanal 120g, bacon, cheddar cremoso, barbecue, cebola, geleia de goiabada apimentada.", preco: 22.00, img: "ched.jpg" },
-    { id: 13, cat: "🍔ARTESANAIS 120g", nome: "Chappa Burguer Picante", desc: "Pão de hambúrguer, carne artesanal 120g, queijo, presunto, cheddar cremoso, banana da terra, geleia de goiabada apimentada, tomate e alface.", preco: 25.00, img: "pic.jpg" },
-    { id: 14, cat: "🍔ARTESANAIS 120g", nome: "Big Burguer Calabresa", desc: "Pão de hambúrguer, carne artesanal 120g, queijos, presunto, calabresa, cheddar cremoso, geleia de goiabada apimentada, barbecue, tomate e alface.", preco: 27.00, img: "cala.webp" },
-    { id: 15, cat: "🍔ARTESANAIS 120g", nome: "X Bacon Duplo", desc: "Pão de hambúrguer, 2 carnes artesanal 120g, queijo, bacon, cheddar cremoso, geleia de goiabada apimentada, barbecue, tomate e alface.", preco: 27.00, img: "baco.webp" },
-    { id: 16, cat: "🍔ARTESANAIS 120g", nome: "Chappa Quente Especial", desc: "Pão de hambúrguer, 2 carnes artesanal 120g, 2 queijos, 2 presuntos, bacon, calabresa, banana da terra, cheddar cremoso, geleia de goiabada apimentada, barbecue, tomate e alface.", preco: 35.00, img: "xd.jpg" },
-    { id: 70, cat: "🍔COMBOS", nome: "Combo Classico", desc: "1 Hamburguer Classico + Porção de Batata + Refri 200ml", preco: 29.99, img: "combo.png" },
-    { id: 71, cat: "🍔COMBOS", nome: "Combo X-Burguers", desc: "2 X-Burguers + 2 Refri 200ml", preco: 32.99, img: "promo3.jpeg" },
+  { 
+    id: 1, 
+    cat: "🍔 HAMBÚRGUERES 90g", 
+    nome: "Chappa Quente", 
+    desc: "Pão de hambúrguer, carne artesanal 90g, queijo, cheddar, tomate e alface.", 
+    preco: 15.00, 
+    img: "ham2.webp" 
+  },
+  { 
+    id: 2, 
+    cat: "🍔 HAMBÚRGUERES 90g", 
+    nome: "X-Salada Especial", 
+    desc: "Pão de hambúrguer, carne artesanal 90g, queijo, presunto, ovo, tomate e alface.", 
+    preco: 18.00, 
+    img: "salaes.jpg" 
+  },
+  { 
+    id: 3, 
+    cat: "🍔 HAMBÚRGUERES 90g", 
+    nome: "X-Bacon", 
+    desc: "Pão de hambúrguer, carne artesanal 90g, bacon, queijo, presunto, salsicha, tomate e alface.", 
+    preco: 20.00, 
+    img: "xbac.jpg" 
+  },
+  { 
+    id: 4, 
+    cat: "🍔 HAMBÚRGUERES 90g", 
+    nome: "X-Tudo", 
+    desc: "Pão de hambúrguer, carne artesanal 90g, queijo, presunto, ovo, salsicha, calabresa, bacon, tomate e alface.", 
+    preco: 22.00, 
+    img: "xtudo.jpg" 
+  },
+  { 
+    id: 5, 
+    cat: "🍔 HAMBÚRGUERES 90g", 
+    nome: "Mega Chappa", 
+    desc: "Pão de hambúrguer, 2 carnes artesanais 90g, queijo, presunto, ovo, calabresa, salsicha, cheddar, tomate e alface.", 
+    preco: 27.00, 
+    img: "chap.jpg" 
+  },
+  { 
+    id: 6, 
+    cat: "🍔 HAMBÚRGUERES 160g", 
+    nome: "X-Bacon Duplo", 
+    desc: "Pão de hambúrguer, 2 carnes artesanais 160g, queijo, bacon, cheddar, geleia de goiabada apimentada, barbecue.", 
+    preco: 28.00, 
+    img: "baco.webp" 
+  },
+  { 
+    id: 7, 
+    cat: "🍔 HAMBÚRGUERES 160g", 
+    nome: "Chef Burguer", 
+    desc: "Pão de hambúrguer, carne de 160g, cheddar, cream cheese, queijo, geleia de pimenta, barbecue, 70g carne desfiada.", 
+    preco: 26.00, 
+    img: "chef.jpeg" 
+  },
+  { 
+    id: 8, 
+    cat: "🍔 HAMBÚRGUERES 160g", 
+    nome: "Nordestino", 
+    desc: "Pão brioche, 2 carnes artesanais 160g, queijo, chimichurri, bacon, banana da terra, cheddar, molho especial, geleia de goiabada apimentada, barbecue.", 
+    preco: 30.00, 
+    img: "dup.jpeg" 
+  },
+  { 
+    id: 9, 
+    cat: "🍔 HAMBÚRGUERES 160g", 
+    nome: "Arretado", 
+    desc: "Pão brioche, carne artesanal 160g, queijo, banana da terra, cheddar, chimichure, calabresa e molho da casa.", 
+    preco: 25.00, 
+    img: "arr.jpeg" 
+  },
+
+    { id: 70, cat: "🍔COMBOS", nome: "Combo Arretado", desc: "1 Hamburguer Classico + Porção de Batata + Refri 200ml", preco: 36.99, img: "combo.png" },
+    { id: 71, cat: "🍔COMBOS", nome: "Combo X-Burguers", desc: "2 X-Burguers + 2 Refri 200ml", preco: 34.99, img: "promo3.jpeg" },
+    { id: 72, cat: "🍔COMBOS", nome: "Combo Nordestino", desc: "1 Nordestino + Refri 350ml + Batata Frita", preco: 46.99, img: "combonor.png" },
+    { id: 73, cat: "🍔COMBOS", nome: "Combo Casal Netflix", desc: "1 X-Bacon Duplo + 1 Arretado + Refri 1L + 2 Batata Frita & entrega gratis.", preco: 95.99, img: "combocasal.png" },
+    { id: 74, cat: "🍔COMBOS", nome: "Combo Familia", desc: "4 X-Bacon + Refri 2L + 3 Batata Frita & entrega gratis.", preco: 135.99, img: "combofam.png" },
+
     { id: 17, cat: "🥩TIRA-GOSTO", nome: "Calabresa Frita Acebolada", desc: "Calabresa passada na chapa ao ponto, acebolada.", preco: 35.00, img: "cala3.jpg" },
     { id: 18, cat: "🥩TIRA-GOSTO", nome: "Carne Acebolada na Chappa", desc: "Carne ao ponto, acebolada na chappa.", preco: 50.00, img: "carn.jpg" },
     { id: 19, cat: "🥩TIRA-GOSTO", nome: "Combo do Chef", desc: "Calabresa especial e carne suculenta passadas na chapa ao ponto, acebolada, molho da casa e barbecue.", preco: 65.00, img: "carncala.jpg" },
@@ -720,12 +777,12 @@ const db = getFirestore(app);
     { id: 43, cat: "🥤BEBIDAS", nome: "Schweppes", desc: "", preco: 6.00, img: "sch.jpeg" },
     { id: 26, cat: "🥤BEBIDAS", nome: "Suco Natural 300ml", desc: "Escolha o sabor ao adicionar.", preco: 7.00, img: "suco.jpg" },
     // --- ADIÇÃO DA CATEGORIA FRITAS ---
-    { id: 62, cat: "🍟FRITAS", nome: "Batata frita P", desc: "Batatinha Frita tam P.", preco: 13.00, img: "bata.jpg" },
-    { id: 63, cat: "🍟FRITAS", nome: "Batata frita G", desc: "Batatinha Frita tam G.", preco: 15.00, img: "bata.jpg" },
+    { id: 62, cat: "🍟FRITAS", nome: "Batata frita P", desc: "Batatinha Frita tam P.", preco: 15.00, img: "bata.jpg" },
+    { id: 63, cat: "🍟FRITAS", nome: "Batata frita G", desc: "Batatinha Frita tam G.", preco: 17.00, img: "bata.jpg" },
     { id: 64, cat: "🍟FRITAS", nome: "Pastel de Carne", desc: "Pastel frito na hora", preco: 4.00, img: "pas.png" },
     { id: 65, cat: "🍟FRITAS", nome: "Pastel de Queijo com Carne", desc: "Pastel frito na hora", preco: 5.00, img: "pas1.jpg" },
-    { id: 67, cat: "🍟FRITAS", nome: "Mini Pasteis", desc: "10 Unidades de mini pasteis", preco: 29.99, img: "mini.jpg" },
-    { id: 69, cat: "🍟FRITAS", nome: "Nuggets", desc: "Porção de Nuggets 300g", preco: 19.99, img: "nug.jpg" },
+    // { id: 67, cat: "🍟FRITAS", nome: "Mini Pasteis", desc: "10 Unidades de mini pasteis", preco: 29.99, img: "mini.jpg" },
+    // { id: 69, cat: "🍟FRITAS", nome: "Nuggets", desc: "Porção de Nuggets 300g", preco: 19.99, img: "nug.jpg" },
 
     // { id: 37, cat: "🍬DIVERSOS", nome: "Balas diversas 6 uni.", desc: "", preco: 1.00, img: "ice.jpg" },
 ];
@@ -853,19 +910,14 @@ window.prepararAdd = (id) => {
                 <label>Observação:</label>
                 <input id="obs" class="swal2-input" placeholder="Ex: Sem cebola" style="width:90%; margin-bottom: 10px;">
                 <p style="color:var(--gold); font-weight:800; margin:10px 0;">ADICIONAIS:</p>
-                <div class="stepper"><span>Hamb. 75g (+R$ 6,00)</span><div><button type="button" onclick="updateQty('h75',-1)">-</button> <span id="val-h75">0</span> <button type="button" onclick="updateQty('h75',1)">+</button></div></div>
-                <div class="stepper"><span>Bacon (+R$ 5,00)</span><div><button type="button" onclick="updateQty('bacon',-1)">-</button> <span id="val-bacon">0</span> <button type="button" onclick="updateQty('bacon',1)">+</button></div></div>
-                <div class="stepper"><span>Calabresa (+R$ 5,00)</span><div><button type="button" onclick="updateQty('calabresa',-1)">-</button> <span id="val-calabresa">0</span> <button type="button" onclick="updateQty('calabresa',1)">+</button></div></div>
-                <div class="stepper"><span>Hamb. 120g (+R$ 8,00)</span><div><button type="button" onclick="updateQty('h120',-1)">-</button> <span id="val-h120">0</span> <button type="button" onclick="updateQty('h120',1)">+</button></div></div>
-                <div class="stepper"><span>Cheddar (+R$ 4,00)</span><div><button type="button" onclick="updateQty('cheddar',-1)">-</button> <span id="val-cheddar">0</span> <button type="button" onclick="updateQty('cheddar',1)">+</button></div></div>
-                <div class="stepper"><span>Salsicha (+R$ 3,00)</span><div><button type="button" onclick="updateQty('salsa',-1)">-</button> <span id="val-salsa">0</span> <button type="button" onclick="updateQty('salsa',1)">+</button></div></div>
-                <div class="stepper"><span>Ovo (+R$ 3,00)</span><div><button type="button" onclick="updateQty('ovo',-1)">-</button> <span id="val-ovo">0</span> <button type="button" onclick="updateQty('ovo',1)">+</button></div></div>
-                <div class="stepper"><span>Presunto (+R$ 3,00)</span><div><button type="button" onclick="updateQty('pres',-1)">-</button> <span id="val-pres">0</span> <button type="button" onclick="updateQty('pres',1)">+</button></div></div>
-                <div class="stepper"><span>Queijo (+R$ 3,00)</span><div><button type="button" onclick="updateQty('queijo',-1)">-</button> <span id="val-queijo">0</span> <button type="button" onclick="updateQty('queijo',1)">+</button></div></div>
-                <div class="stepper"><span>Barbecue (+R$ 3,00)</span><div><button type="button" onclick="updateQty('bbq',-1)">-</button> <span id="val-bbq">0</span> <button type="button" onclick="updateQty('bbq',1)">+</button></div></div>
-                <div class="stepper"><span>Banana (+R$ 3,00)</span><div><button type="button" onclick="updateQty('banana',-1)">-</button> <span id="val-banana">0</span> <button type="button" onclick="updateQty('banana',1)">+</button></div></div>
-                <div class="stepper"><span>Geleia Pimenta (+R$ 5,00)</span><div><button type="button" onclick="updateQty('geleia',-1)">-</button> <span id="val-geleia">0</span> <button type="button" onclick="updateQty('geleia',1)">+</button></div></div>
-            </div>`;
+                <div class="stepper"><span>Hamb. 90g (+R$ 8,00)</span><div><button type="button" onclick="updateQty('h90',-1)">-</button> <span id="val-h90">0</span> <button type="button" onclick="updateQty('h90',1)">+</button></div></div>
+<div class="stepper"><span>Bacon (+R$ 5,00)</span><div><button type="button" onclick="updateQty('bacon',-1)">-</button> <span id="val-bacon">0</span> <button type="button" onclick="updateQty('bacon',1)">+</button></div></div>
+<div class="stepper"><span>Calabresa (+R$ 5,00)</span><div><button type="button" onclick="updateQty('calabresa',-1)">-</button> <span id="val-calabresa">0</span> <button type="button" onclick="updateQty('calabresa',1)">+</button></div></div>
+<div class="stepper"><span>Hamb. 160g (+R$ 10,00)</span><div><button type="button" onclick="updateQty('h160',-1)">-</button> <span id="val-h160">0</span> <button type="button" onclick="updateQty('h160',1)">+</button></div></div>
+<div class="stepper"><span>Cheddar (+R$ 4,00)</span><div><button type="button" onclick="updateQty('cheddar',-1)">-</button> <span id="val-cheddar">0</span> <button type="button" onclick="updateQty('cheddar',1)">+</button></div></div>
+<div class="stepper"><span>Ovo (+R$ 3,00)</span><div><button type="button" onclick="updateQty('ovo',-1)">-</button> <span id="val-ovo">0</span> <button type="button" onclick="updateQty('ovo',1)">+</button></div></div>
+<div class="stepper"><span>Queijo (+R$ 3,00)</span><div><button type="button" onclick="updateQty('queijo',-1)">-</button> <span id="val-queijo">0</span> <button type="button" onclick="updateQty('queijo',1)">+</button></div></div>
+<div class="stepper"><span>Banana (+R$ 3,00)</span><div><button type="button" onclick="updateQty('banana',-1)">-</button> <span id="val-banana">0</span> <button type="button" onclick="updateQty('banana',1)">+</button></div></div></div>`;
     }
 
     Swal.fire({
@@ -884,18 +936,14 @@ window.prepararAdd = (id) => {
             } else {
                 return {
                     obs, isEspecial: false,
-                    h75: parseInt(document.getElementById('val-h75').innerText),
-                    bacon: parseInt(document.getElementById('val-bacon').innerText),
-                    calabresa: parseInt(document.getElementById('val-calabresa').innerText),
-                    h120: parseInt(document.getElementById('val-h120').innerText),
-                    cheddar: parseInt(document.getElementById('val-cheddar').innerText),
-                    salsa: parseInt(document.getElementById('val-salsa').innerText),
-                    ovo: parseInt(document.getElementById('val-ovo').innerText),
-                    pres: parseInt(document.getElementById('val-pres').innerText),
-                    queijo: parseInt(document.getElementById('val-queijo').innerText),
-                    bbq: parseInt(document.getElementById('val-bbq').innerText),
-                    banana: parseInt(document.getElementById('val-banana').innerText),
-                    geleia: parseInt(document.getElementById('val-geleia').innerText)
+                   h90: parseInt(document.getElementById('val-h90')?.innerText || 0),
+bacon: parseInt(document.getElementById('val-bacon')?.innerText || 0),
+calabresa: parseInt(document.getElementById('val-calabresa')?.innerText || 0),
+h160: parseInt(document.getElementById('val-h160')?.innerText || 0),
+cheddar: parseInt(document.getElementById('val-cheddar')?.innerText || 0),
+ovo: parseInt(document.getElementById('val-ovo')?.innerText || 0),
+queijo: parseInt(document.getElementById('val-queijo')?.innerText || 0),
+banana: parseInt(document.getElementById('val-banana')?.innerText || 0)
                 }
             }
         }
@@ -908,9 +956,27 @@ window.prepararAdd = (id) => {
             if (d.isEspecial) {
                 extras_texto = d.escolha !== "Padrão" ? `Opção: ${d.escolha}` : "";
             } else {
-                const precos = { h75:6, bacon:5, calabresa:5, h120:8, cheddar:4, salsa:3, ovo:3, pres:3, queijo:3, bbq:3, banana:3, geleia:5 };
-                const nomes = { h75:"Hamb. 75g", bacon:"Bacon", calabresa:"Calabresa", h120:"Hamb. 120g", cheddar:"Cheddar", salsa:"Salsicha", ovo:"Ovo", pres:"Presunto", queijo:"Queijo", bbq:"Barbecue", banana:"Banana", geleia:"Geleia Pimenta" };
-                let lista = [];
+                const precos = { 
+  h90: 8, 
+  bacon: 5, 
+  calabresa: 5, 
+  h160: 10, 
+  cheddar: 4, 
+  ovo: 3, 
+  queijo: 3, 
+  banana: 3 
+};
+
+const nomes = { 
+  h90: "Hamb. 90g", 
+  bacon: "Bacon", 
+  calabresa: "Calabresa", 
+  h160: "Hamb. 160g", 
+  cheddar: "Cheddar", 
+  ovo: "Ovo", 
+  queijo: "Queijo", 
+  banana: "Banana" 
+};let lista = [];
                 Object.keys(precos).forEach(key => {
                     if (d[key] > 0) {
                         extras_valor += (d[key] * precos[key]);
@@ -1287,7 +1353,7 @@ async function finalizar() {
 
 /// --- Inicialização das Categorias Corrigida ---
 // --- Inicialização 3 em cima, 2 em baixo ---
-const cats = ["🍔ARTESANAIS 120g", "🍔ARTESANAIS 75g", "🍔COMBOS" , "🥩TIRA-GOSTO", "🥤BEBIDAS", "🍟FRITAS"];
+const cats = ["🍔 HAMBÚRGUERES 90g", "🍔 HAMBÚRGUERES 160g", "🍔COMBOS" , "🥩TIRA-GOSTO", "🥤BEBIDAS", "🍟FRITAS"];
 const nav = document.getElementById('nav-cats');
 
 if (nav) {
