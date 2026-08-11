@@ -752,23 +752,24 @@ const db = getFirestore(app);
     id: 9, 
     cat: "🍔 HAMBÚRGUERES 160g", 
     nome: "Arretado", 
-    desc: "Pão brioche, carne artesanal 160g, queijo, banana da terra, cheddar, chimichure, calabresa e molho da casa.", 
+    desc: "Pão brioche, carne artesanal 160g, queijo, banana da terra, cheddar, chimichurri, calabresa e molho da casa.", 
     preco: 25.00, 
     img: "arr.jpeg" 
   },
 
-    { id: 70, cat: "🍔COMBOS", nome: "Combo Arretado", desc: "1 Hamburguer Classico + Porção de Batata + Refri 200ml", preco: 36.99, img: "combo.png" },
-    { id: 71, cat: "🍔COMBOS", nome: "Combo X-Burguers", desc: "2 X-Burguers + 2 Refri 200ml", preco: 34.99, img: "promo3.jpeg" },
-    { id: 72, cat: "🍔COMBOS", nome: "Combo Nordestino", desc: "1 Nordestino + Refri 350ml + Batata Frita", preco: 46.99, img: "combonor.png" },
-    { id: 73, cat: "🍔COMBOS", nome: "Combo Casal Netflix", desc: "1 X-Bacon Duplo + 1 Arretado + Refri 1L + 2 Batata Frita & entrega gratis.", preco: 95.99, img: "combocasal.png" },
-    { id: 74, cat: "🍔COMBOS", nome: "Combo Familia", desc: "4 X-Bacon + Refri 2L + 3 Batata Frita & entrega gratis.", preco: 135.99, img: "combofam.png" },
-
+    { id: 70, cat: "🍔COMBOS", nome: "Combo Arretado", desc: "1 Hamburguer Classico + Porção de Batata + Refri 200ml", preco: 36.99, precoAntigo: 44.00, img: "1.jpeg" },
+    { id: 71, cat: "🍔COMBOS", nome: "Combo ChappaQuente", desc: "2 X-Burguers + 2 Refri 200ml", preco: 34.99, precoAntigo: 38.00, img: "2.jpeg" },
+    { id: 72, cat: "🍔COMBOS", nome: "Combo Nordestino", desc: "1 Nordestino + Refri 350ml + Batata Frita", preco: 46.99, precoAntigo: 51.00, img: "combonor.png" },
+    { id: 73, cat: "🍔COMBOS", nome: "Combo Casal Netflix", desc: "1 X-Bacon Duplo + 1 Arretado + Refri 1L + 2 Batata Frita & entrega gratis.", preco: 86.99, precoAntigo: 96.00, img: "3.jpeg" },
+    { id: 74, cat: "🍔COMBOS", nome: "Combo Familia", desc: "4 X-Bacon + Refri 2L + 3 Batata Frita & entrega gratis.", preco: 127.99, precoAntigo: 140.00, img: "combofam.png" },
+    
     { id: 17, cat: "🥩TIRA-GOSTO", nome: "Calabresa Frita Acebolada", desc: "Calabresa passada na chapa ao ponto, acebolada.", preco: 35.00, img: "cala3.jpg" },
-    { id: 18, cat: "🥩TIRA-GOSTO", nome: "Carne Acebolada na Chappa", desc: "Carne ao ponto, acebolada na chappa.", preco: 50.00, img: "carn.jpg" },
-    { id: 19, cat: "🥩TIRA-GOSTO", nome: "Combo do Chef", desc: "Calabresa especial e carne suculenta passadas na chapa ao ponto, acebolada, molho da casa e barbecue.", preco: 65.00, img: "carncala.jpg" },
-    { id: 27, cat: "🥩TIRA-GOSTO", nome: "Calabresa Frita Acebolada (porções pequenas)", desc: "Calabresa passada na chapa ao ponto, acebolada.", preco: 15.00, img: "cala3.jpg" },
-    { id: 28, cat: "🥩TIRA-GOSTO", nome: "Carne Acebolada na Chappa (porções pequenas)", desc: "Carne ao ponto, acebolada na chappa.", preco: 15.00, img: "carn.jpg" },
-    { id: 29, cat: "🥩TIRA-GOSTO", nome: "Combo do Chef (porções pequenas)", desc: "Calabresa especial e carne suculenta passadas na chapa ao ponto, acebolada, molho da casa e barbecue.", preco: 15.00, img: "carncala.jpg" },
+    { id: 69, cat: "🥩TIRA-GOSTO", nome: "Nuggets", desc: "Porção de Nuggets 300g", preco: 19.99, img: "nug.jpg" },
+    // { id: 18, cat: "🥩TIRA-GOSTO", nome: "Carne Acebolada na Chappa", desc: "Carne ao ponto, acebolada na chappa.", preco: 50.00, img: "carn.jpg" },
+    // { id: 19, cat: "🥩TIRA-GOSTO", nome: "Combo do Chef", desc: "Calabresa especial e carne suculenta passadas na chapa ao ponto, acebolada, molho da casa e barbecue.", preco: 65.00, img: "carncala.jpg" },
+    // { id: 27, cat: "🥩TIRA-GOSTO", nome: "Calabresa Frita Acebolada (porções pequenas)", desc: "Calabresa passada na chapa ao ponto, acebolada.", preco: 15.00, img: "cala3.jpg" },
+    // { id: 28, cat: "🥩TIRA-GOSTO", nome: "Carne Acebolada na Chappa (porções pequenas)", desc: "Carne ao ponto, acebolada na chappa.", preco: 15.00, img: "carn.jpg" },
+    // { id: 29, cat: "🥩TIRA-GOSTO", nome: "Combo do Chef (porções pequenas)", desc: "Calabresa especial e carne suculenta passadas na chapa ao ponto, acebolada, molho da casa e barbecue.", preco: 15.00, img: "carncala.jpg" },
     { id: 20, cat: "🥤BEBIDAS", nome: "Refrigerante 200ml", desc: "Escolha o sabor ao adicionar.", preco: 4.00, img: "rive.webp" },
     { id: 21, cat: "🥤BEBIDAS", nome: "Refrigerante 350ml", desc: "Escolha o sabor ao adicionar.", preco: 6.00, img: "coca.jpeg" },
     { id: 22, cat: "🥤BEBIDAS", nome: "Refrigerante 1L", desc: "Escolha o sabor ao adicionar.", preco: 10.00, img: "coca2.jpeg" },
@@ -777,20 +778,21 @@ const db = getFirestore(app);
     // { id: 59, cat: "🥤BEBIDAS", nome: "Coca Cola 0", desc: "200ml", preco: 6.00, img: "cocaz.jpeg" },
     { id: 61, cat: "🥤BEBIDAS", nome: "Coca KS", desc: "200ml", preco: 4.50, img: "cocaks.jpeg" },
     { id: 24, cat: "🥤BEBIDAS", nome: "H2O Limoneto 500ml", desc: "", preco: 8.00, img: "limo.jpg" },
-    { id: 45, cat: "🥤BEBIDAS", nome: "Água mineral com gás", desc: "", preco: 4.00, img: "agua.jpg" },
+    { id: 45, cat: "🥤BEBIDAS", nome: "Água mineral com gás", desc: "", preco: 5.00, img: "agua.jpg" },
+    { id: 75, cat: "🥤BEBIDAS", nome: "Água mineral sem gás", desc: "", preco: 4.00, img: "agua.jpg" },
     { id: 32, cat: "🥤BEBIDAS", nome: "Água mineral 1,5L", desc: "", preco: 7.00, img: "agua.jpg" },
     { id: 33, cat: "🥤BEBIDAS", nome: "Red Bull", desc: "", preco: 15.00, img: "red.png" },
     { id: 38, cat: "🥤BEBIDAS", nome: "Monster 269ml", desc: "", preco: 15.00, img: "monst.webp" },
     { id: 39, cat: "🥤BEBIDAS", nome: "Ice Limão 269ml", desc: "", preco: 7.00, img: "51.webp" },
     { id: 43, cat: "🥤BEBIDAS", nome: "Schweppes", desc: "", preco: 6.00, img: "sch.jpeg" },
-    { id: 26, cat: "🥤BEBIDAS", nome: "Suco Natural 300ml", desc: "Escolha o sabor ao adicionar.", preco: 7.00, img: "suco.jpg" },
+    { id: 26, cat: "🥤BEBIDAS", nome: "Suco Natural 300ml", desc: "Escolha o sabor ao adicionar.", preco: 8.00, img: "suco.jpg" },
     // --- ADIÇÃO DA CATEGORIA FRITAS ---
     { id: 62, cat: "🍟FRITAS", nome: "Batata frita P", desc: "Batatinha Frita tam P.", preco: 15.00, img: "bata.jpg" },
     { id: 63, cat: "🍟FRITAS", nome: "Batata frita G", desc: "Batatinha Frita tam G.", preco: 17.00, img: "bata.jpg" },
     { id: 64, cat: "🍟FRITAS", nome: "Pastel de Carne", desc: "Pastel frito na hora", preco: 4.00, img: "pas.png" },
     { id: 65, cat: "🍟FRITAS", nome: "Pastel de Queijo com Carne", desc: "Pastel frito na hora", preco: 5.00, img: "pas1.jpg" },
     // { id: 67, cat: "🍟FRITAS", nome: "Mini Pasteis", desc: "10 Unidades de mini pasteis", preco: 29.99, img: "mini.jpg" },
-    // { id: 69, cat: "🍟FRITAS", nome: "Nuggets", desc: "Porção de Nuggets 300g", preco: 19.99, img: "nug.jpg" },
+    
 
     // { id: 37, cat: "🍬DIVERSOS", nome: "Balas diversas 6 uni.", desc: "", preco: 1.00, img: "ice.jpg" },
 ];
@@ -864,7 +866,7 @@ onSnapshot(doc(db, "config", "loja"), (snap) => {
     <div class="produto-card">
         <img src="${p.img}" class="img-prod">
         <div class="nome-item">${p.nome}</div>
-        ${p.cat === "🍔COMBOS" ? `<div class="preco-riscado">R$ ${(p.preco + 20).toFixed(2)}</div>` : ''}
+        ${p.precoAntigo ? `<div class="preco-riscado">R$ ${p.precoAntigo.toFixed(2)}</div>` : ''}
         <div class="preco-item">R$ ${p.preco.toFixed(2)}</div>
         <button class="btn-info" onclick="verDetalhes(${p.id})"> ❗DESCRIÇÃO</button><br>
         <button class="btn-add-mini" onclick="prepararAdd(${p.id})">✅ADICIONAR</button>
@@ -1497,4 +1499,3 @@ document.addEventListener('contextmenu', function (event) { event.preventDefault
 
 </html>
 
-container.innerHTML += `
