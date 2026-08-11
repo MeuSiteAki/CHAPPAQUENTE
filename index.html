@@ -470,6 +470,14 @@ header {
         font-size: 0.75rem;
     }
 }
+.preco-riscado {
+    color: #9b9a9a;
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: line-through;
+    text-align: center;
+    margin-bottom: 2px;
+}
     </style>
 </head>
 
@@ -853,13 +861,14 @@ onSnapshot(doc(db, "config", "loja"), (snap) => {
             const filtrados = cat === "Todos" ? produtos : produtos.filter(p => p.cat === cat);
             filtrados.forEach(p => {
                 container.innerHTML += `
-                    <div class="produto-card">
-                        <img src="${p.img}" class="img-prod">
-                        <div class="nome-item">${p.nome}</div>
-                        <div class="preco-item">R$ ${p.preco.toFixed(2)}</div>
-                        <button class="btn-info" onclick="verDetalhes(${p.id})"> ❗DESCRIÇÃO</button><br>
-                        <button class="btn-add-mini" onclick="prepararAdd(${p.id})">✅ADICIONAR</button>
-                    </div>`;
+    <div class="produto-card">
+        <img src="${p.img}" class="img-prod">
+        <div class="nome-item">${p.nome}</div>
+        ${p.cat === "🍔COMBOS" ? `<div class="preco-riscado">R$ ${(p.preco + 20).toFixed(2)}</div>` : ''}
+        <div class="preco-item">R$ ${p.preco.toFixed(2)}</div>
+        <button class="btn-info" onclick="verDetalhes(${p.id})"> ❗DESCRIÇÃO</button><br>
+        <button class="btn-add-mini" onclick="prepararAdd(${p.id})">✅ADICIONAR</button>
+    </div>`;
             });
             document.querySelectorAll('.cat-btn').forEach(b => b.classList.toggle('active', b.innerText.includes(cat)));
         };
@@ -1487,3 +1496,5 @@ document.addEventListener('contextmenu', function (event) { event.preventDefault
 </body>
 
 </html>
+
+container.innerHTML += `
