@@ -682,11 +682,23 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+let statusEstoque = {};
+
+function gerarIdEstoque(nome) {
+    return nome.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+        .trim().replace(/\s+/g, '_').replace(/[^\w_]/g, '');
+}
+
+onSnapshot(doc(db, "estoque", "disponibilidade"), (snap) => {
+    statusEstoque = snap.exists() ? snap.data() : {};
+    const catAtiva = document.querySelector('.cat-btn.active');
+    if (catAtiva) filtrar(catAtiva.innerText);
+});
         const produtos = [
     // { id: 47, cat: "🍔ARTESANAIS 120g", nome: "COMBO Clássico", desc: "1 Hambúrguer Clássico + 1 Batata + 1 Refri 200ml", preco: 29.99, img: "combo.png" },       
   { 
     id: 1, 
-    cat: "🍔 HAMBÚRGUERES 90g", 
+    cat: "🍔 HAMBÚRGUERES", 
     nome: "Chappa Quente", 
     desc: "Pão de hambúrguer, carne artesanal 90g, queijo, cheddar, tomate e alface.", 
     preco: 15.00, 
@@ -694,7 +706,7 @@ const db = getFirestore(app);
   },
   { 
     id: 2, 
-    cat: "🍔 HAMBÚRGUERES 90g", 
+    cat: "🍔 HAMBÚRGUERES", 
     nome: "X-Salada Especial", 
     desc: "Pão de hambúrguer, carne artesanal 90g, queijo, presunto, ovo, tomate e alface.", 
     preco: 18.00, 
@@ -702,7 +714,7 @@ const db = getFirestore(app);
   },
   { 
     id: 3, 
-    cat: "🍔 HAMBÚRGUERES 90g", 
+    cat: "🍔 HAMBÚRGUERES", 
     nome: "X-Bacon", 
     desc: "Pão de hambúrguer, carne artesanal 90g, bacon, queijo, presunto, salsicha, tomate e alface.", 
     preco: 20.00, 
@@ -710,7 +722,7 @@ const db = getFirestore(app);
   },
   { 
     id: 4, 
-    cat: "🍔 HAMBÚRGUERES 90g", 
+    cat: "🍔 HAMBÚRGUERES", 
     nome: "X-Tudo", 
     desc: "Pão de hambúrguer, carne artesanal 90g, queijo, presunto, ovo, salsicha, calabresa, bacon, tomate e alface.", 
     preco: 22.00, 
@@ -718,7 +730,7 @@ const db = getFirestore(app);
   },
   { 
     id: 5, 
-    cat: "🍔 HAMBÚRGUERES 90g", 
+    cat: "🍔 HAMBÚRGUERES", 
     nome: "Mega Chappa", 
     desc: "Pão de hambúrguer, 2 carnes artesanais 90g, queijo, presunto, ovo, calabresa, salsicha, cheddar, tomate e alface.", 
     preco: 27.00, 
@@ -726,7 +738,7 @@ const db = getFirestore(app);
   },
   { 
     id: 6, 
-    cat: "🍔 HAMBÚRGUERES 160g", 
+    cat: "🍔 HAMBÚRGUERES", 
     nome: "X-Bacon Duplo", 
     desc: "Pão de hambúrguer, 2 carnes artesanais 160g, queijo, bacon, cheddar, geleia de goiabada apimentada, barbecue.", 
     preco: 28.00, 
@@ -734,7 +746,7 @@ const db = getFirestore(app);
   },
   { 
     id: 7, 
-    cat: "🍔 HAMBÚRGUERES 160g", 
+    cat: "🍔 HAMBÚRGUERES", 
     nome: "Chef Burguer", 
     desc: "Pão de hambúrguer, carne de 160g, cheddar, cream cheese, queijo, geleia de pimenta, barbecue, 70g carne desfiada.", 
     preco: 26.00, 
@@ -742,7 +754,7 @@ const db = getFirestore(app);
   },
   { 
     id: 8, 
-    cat: "🍔 HAMBÚRGUERES 160g", 
+    cat: "🍔 HAMBÚRGUERES", 
     nome: "Nordestino", 
     desc: "Pão brioche, 2 carnes artesanais 160g, queijo, chimichurri, bacon, banana da terra, cheddar, molho especial, geleia de goiabada apimentada, barbecue.", 
     preco: 30.00, 
@@ -750,7 +762,7 @@ const db = getFirestore(app);
   },
   { 
     id: 9, 
-    cat: "🍔 HAMBÚRGUERES 160g", 
+    cat: "🍔 HAMBÚRGUERES", 
     nome: "Arretado", 
     desc: "Pão brioche, carne artesanal 160g, queijo, banana da terra, cheddar, chimichurri, calabresa e molho da casa.", 
     preco: 25.00, 
@@ -858,22 +870,24 @@ onSnapshot(doc(db, "config", "loja"), (snap) => {
         let carrinho = [];
 
         window.filtrar = (cat) => {
-            const container = document.getElementById('lista-produtos');
-            container.innerHTML = "";
-            const filtrados = cat === "Todos" ? produtos : produtos.filter(p => p.cat === cat);
-            filtrados.forEach(p => {
-                container.innerHTML += `
-    <div class="produto-card">
+    const container = document.getElementById('lista-produtos');
+    container.innerHTML = "";
+    const filtrados = cat === "Todos" ? produtos : produtos.filter(p => p.cat === cat);
+    filtrados.forEach(p => {
+        const idEst = gerarIdEstoque(p.nome);
+        const esgotado = statusEstoque[idEst] === false;
+        container.innerHTML += `
+    <div class="produto-card" style="${esgotado ? 'opacity:0.55;filter:grayscale(0.8);' : ''}">
         <img src="${p.img}" class="img-prod">
-        <div class="nome-item">${p.nome}</div>
+        <div class="nome-item">${p.nome} ${esgotado ? '<br><span style="color:#ff4d4d;font-size:11px;">(ESGOTADO)</span>' : ''}</div>
         ${p.precoAntigo ? `<div class="preco-riscado">R$ ${p.precoAntigo.toFixed(2)}</div>` : ''}
         <div class="preco-item">R$ ${p.preco.toFixed(2)}</div>
         <button class="btn-info" onclick="verDetalhes(${p.id})"> ❗DESCRIÇÃO</button><br>
-        <button class="btn-add-mini" onclick="prepararAdd(${p.id})">✅ADICIONAR</button>
+        <button class="btn-add-mini" ${esgotado ? 'disabled style="background:#333;cursor:not-allowed;"' : ''} onclick="prepararAdd(${p.id})">${esgotado ? 'ESGOTADO' : '✅ADICIONAR'}</button>
     </div>`;
-            });
-            document.querySelectorAll('.cat-btn').forEach(b => b.classList.toggle('active', b.innerText.includes(cat)));
-        };
+    });
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.toggle('active', b.innerText.includes(cat)));
+};
 
    window.verDetalhes = (id) => {
     const p = produtos.find(item => item.id === id);
@@ -1364,7 +1378,7 @@ async function finalizar() {
 
 /// --- Inicialização das Categorias Corrigida ---
 // --- Inicialização 3 em cima, 2 em baixo ---
-const cats = ["🍔 HAMBÚRGUERES 90g", "🍔 HAMBÚRGUERES 160g", "🍔COMBOS" , "🥩TIRA-GOSTO", "🥤BEBIDAS", "🍟FRITAS"];
+const cats = ["🍔 HAMBÚRGUERES", "🍔COMBOS" , "🥩TIRA-GOSTO", "🥤BEBIDAS", "🍟FRITAS"];
 const nav = document.getElementById('nav-cats');
 
 if (nav) {
