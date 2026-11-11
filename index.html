@@ -1305,9 +1305,10 @@ async function finalizar() {
     }
 
     // 1. Recalcula a taxa (Zera se for retirada)
-    let taxa = 0;
+        let taxa = 0;
     if (tipoPedido === 'entrega') {
-        if (bairro === "Itinga-PA" || bairro === "Paulistão") taxa = 8.00;
+        if (bairro === "Paulistão") taxa = 8.00;
+        else if (bairro === "Itinga-PA") taxa = 4.00;
         else if (bairro) taxa = 3.00;
     }
 
@@ -1513,3 +1514,4 @@ document.addEventListener('contextmenu', function (event) { event.preventDefault
 
 </html>
 
+ITINGA-PA
